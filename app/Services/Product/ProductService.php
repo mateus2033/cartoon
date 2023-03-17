@@ -95,7 +95,7 @@ class ProductService implements ProductServiceInterface {
            return $stock;
         }
 
-        $photos = $this->productPhotoService->manageStorageProductPhotos($photos, $product->id);
+        $photos = $this->productPhotoService->manageStorageProductPhotos($photos, $product);
         return $this->showProductById($product->id);
     }
 

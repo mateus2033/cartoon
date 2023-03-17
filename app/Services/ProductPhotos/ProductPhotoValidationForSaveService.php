@@ -8,13 +8,14 @@ use App\Utils\ConstantMessage\ConstantPath;
 use App\Utils\ErroMensage\ErroMensage;
 use App\Utils\ManagePath\ManagePath;
 
-class ProductPhotoValidationForSaveService extends ProductPhoto {
-    
+class ProductPhotoValidationForSaveService extends ProductPhoto
+{
+
     private bool  $isValid;
     public  array $message;
 
     public function validFormProductPhoto($images, int $product_id)
-    {   
+    {
         $this->validateProductPhoto($images, $product_id);
         if ($this->isValid == true) {
             return $this->mountProductPhoto();
@@ -35,10 +36,10 @@ class ProductPhotoValidationForSaveService extends ProductPhoto {
         $count = 0;
         $array = [];
         $error = [];
-       
+
         $array['image'] = $this->_image($image);
         $array['product_id'] = $this->_product_id($product_id);
-        
+
         foreach ($array as $key => $value) {
             if (!is_null($value)) {
                 $error[$key] = $value;
@@ -60,17 +61,16 @@ class ProductPhotoValidationForSaveService extends ProductPhoto {
      * @return string|null
      */
     private function _image($image)
-    {  
+    {
         if (!isset($image)) {
             return ConstantMessage::REQUIRED;
         }
-        
-        if (!$image->isValid() || !$image->extension() ) {
+
+        if (!$image->isValid() || !$image->extension()) {
             return ConstantMessage::INVALID_IMAGE_PERFIL;
         }
-        
-    
-        $imageName = ManagePath::createPath(ConstantPath::PRODUCT_PATH, $image);       
+
+        $imageName = ManagePath::createPath(ConstantPath::PRODUCT_PATH, $image);
         $this->setImage($imageName);
         return null;
     }
@@ -84,5 +84,4 @@ class ProductPhotoValidationForSaveService extends ProductPhoto {
         $this->setProduct_id($product_id);
         return null;
     }
-
 }

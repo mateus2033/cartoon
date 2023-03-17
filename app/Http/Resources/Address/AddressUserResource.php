@@ -4,7 +4,8 @@ namespace App\Http\Resources\Address;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AddressUserResource extends JsonResource {
+class AddressUserResource extends JsonResource
+{
 
 
     /**
@@ -14,12 +15,12 @@ class AddressUserResource extends JsonResource {
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
-    {  
+    {
         $addresses     = $this->resource;
         $addressAux    = [];
         $addressResult = [];
-      
-        foreach($addresses as $address) {
+
+        foreach ($addresses as $address) {
             $addressAux['id']     = $address->id;
             $addressAux['street'] = $address->street;
             $addressAux['number'] = $address->number;
@@ -27,7 +28,7 @@ class AddressUserResource extends JsonResource {
             $addressAux['state'] = $address->state;
             $addressAux['postalCode'] = $address->postalCode;
             $addressAux['user_id'] = $address->user_id;
-            $addressResult [] = $addressAux;
+            $addressResult[] = $addressAux;
         }
 
         return $addressResult;

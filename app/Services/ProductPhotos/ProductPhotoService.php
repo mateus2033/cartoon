@@ -2,39 +2,50 @@
 
 namespace App\Services\ProductPhotos;
 
+use App\Repository\ProductPhotos\ProductPhotosRepository;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ErroMensage\ErroMensage;
 
-class ProductPhotoService  {
+class ProductPhotoService
+{
 
+    private ProductPhotosRepository $productPhotosRepository;
     private ProductPhotoValidationForSaveService $productPhotoValidationForSaveService;
 
-    public function __construct(ProductPhotoValidationForSaveService $productPhotoValidationForSaveService)
-    {
+    public function __construct(
+        ProductPhotosRepository $productPhotosRepository,
+        ProductPhotoValidationForSaveService $productPhotoValidationForSaveService
+    ) {
+        $this->productPhotosRepository = $productPhotosRepository;
         $this->productPhotoValidationForSaveService = $productPhotoValidationForSaveService;
     }
 
-    public function manageStorageProductPhotos(array $images, int $product_id)
+    public function manageStorageProductPhotos(array $images,  $product)
     {
         $error = [];
-        if(count($images) != 4)
-        {
+        if (count($images) != 4) {
             return ErroMensage::errorMessage(ConstantMessage::INVALID_NUMBER_PHOTOS);
         }
 
-        for($i = 0; $i < count($images); $i++)  {
-           $array[] = $this->productPhotoValidationForSaveService->validFormProductPhoto($images[$i], $product_id);
-           if(!is_array($array)){
+        for ($i = 0; $i < count($images); $i++) {
+            $array[] = $this->productPhotoValidationForSaveService->validFormProductPhoto($images[$i], $product->id);
+            if (!is_array($array)) {
                 $error[] = $array;
-           }
+            }
         }
 
+        if (count($error) > 0) {
+            return $error;
+        }
 
-
-        dd($array, 'ProductPhotoService');
-
-
-
+        return $this->saveProductPhotos($array);
     }
 
+    private function saveProductPhotos(array $photos)
+    {
+        foreach ($photos as $photo) {
+            $this->productPhotosRepository->create($photo);
+        }
+        return true;
+    }
 }

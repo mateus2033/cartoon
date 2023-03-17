@@ -21,6 +21,5 @@ class CustomException  extends Exception
         if ($exception instanceof CustomException) {
             return response()->view('erros.minhaexcecao', [], 500);
         }
-        //return parent::render($request, $exception);
     }
 }

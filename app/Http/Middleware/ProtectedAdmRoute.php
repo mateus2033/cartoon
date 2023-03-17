@@ -5,22 +5,15 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Exceptions\CustomException;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Exceptions\NotFoundmonException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use App\Utils\ConstantMessage\ConstantPermissionMessage;
+use Exception;
 
 class ProtectedAdmRoute
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
+
     public function handle(Request $request, Closure $next)
     {
         try {
@@ -39,11 +32,11 @@ class ProtectedAdmRoute
     {
         $auth = response()->json(auth('api')->user());
         if (!isset($auth->original->rule_id)) {
-            throw new CustomException(ConstantPermissionMessage::AUTHORIZATION_NOT_FOUND, 401);
+            throw new Exception(ConstantPermissionMessage::AUTHORIZATION_NOT_FOUND, 401);
         }
 
         if ($auth->original->rule_id !== 1) {
-            throw new CustomException(ConstantPermissionMessage::USER_NOT_PERMISSION, 401);
+            throw new Exception(ConstantPermissionMessage::USER_NOT_PERMISSION, 401);
         }
     }
 }

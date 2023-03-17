@@ -9,6 +9,7 @@ use App\Interfaces\Carts\CartsRepositoryInterface;
 use App\Interfaces\Category\CategoryRepositoryInterface;
 use App\Interfaces\Payment\PaymentRepositoryInterface;
 use App\Interfaces\Product\ProductRepositoryInterface;
+use App\Interfaces\ProductPhotos\ProductPhotosInterface;
 use App\Interfaces\Stock\StockRepositoryInterface;
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Repository\Acquisitions\AcquisitionsRespository;
@@ -18,6 +19,7 @@ use App\Repository\Carts\CartRepository;
 use App\Repository\Category\CategoryRepository;
 use App\Repository\Payment\PaymentRepository;
 use App\Repository\Product\ProductRepository;
+use App\Repository\ProductPhotos\ProductPhotosRepository;
 use App\Repository\Stock\StockRepository;
 use App\Repository\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -40,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(StockRepositoryInterface::class, StockRepository::class);
+        $this->app->bind(ProductPhotosInterface::class, ProductPhotosRepository::class);
     }
 
     /**

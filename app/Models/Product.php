@@ -26,7 +26,7 @@ class Product extends Model
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId(): int
     {
         return $this->id;
@@ -34,7 +34,7 @@ class Product extends Model
 
     /**
      * Set the value of id
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -42,7 +42,7 @@ class Product extends Model
 
     /**
      * Get the value of name
-     */ 
+     */
     public function getName(): string
     {
         return $this->name;
@@ -51,7 +51,7 @@ class Product extends Model
     /**
      * Set the value of name
      *
-     */ 
+     */
     public function setName($name): void
     {
         $this->name = $name;
@@ -59,7 +59,7 @@ class Product extends Model
 
     /**
      * Get the value of price
-     */ 
+     */
     public function getPrice(): float
     {
         return $this->price;
@@ -68,7 +68,7 @@ class Product extends Model
     /**
      * Set the value of price
      *
-     */ 
+     */
     public function setPrice($price): void
     {
         $this->price = $price;
@@ -76,7 +76,7 @@ class Product extends Model
 
     /**
      * Get the value of category_id
-     */ 
+     */
     public function getCategory_id(): int
     {
         return $this->category_id;
@@ -85,7 +85,7 @@ class Product extends Model
     /**
      * Set the value of category_id
      *
-     */ 
+     */
     public function setCategory_id($category_id): void
     {
         $this->category_id = $category_id;
