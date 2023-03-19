@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(StockRepositoryInterface::class, StockRepository::class);
         $this->app->bind(ProductPhotosInterface::class, ProductPhotosRepository::class);
+        $this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
     }
 
     /**

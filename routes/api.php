@@ -27,8 +27,13 @@ Route::prefix('account/')->group(function () {
     Route::POST('storage',  [UserController::class, 'storage']);
 });
 
+Route::prefix('/cartoon')->group(function () {
+    Route::GET('indexOfProductForUser', [ProductController::class, 'indexOfProductForUser']);
+    Route::GET('indexMoreSold', [ProductController::class, 'indexOfMoreSoldInMonth']);
+});
+
 Route::prefix('user/')->group(function () {
-    Route::group(['middleware' => []], function () {
+    Route::group(['middleware' => ['userAuth']], function () {
         Route::GET('listUser',  [UserController::class, 'listUser']);
         Route::GET('show',      [UserController::class, 'show']);
         Route::PUT('update',    [UserController::class, 'update']);
@@ -49,12 +54,10 @@ Route::prefix('address/')->group(function () {
 
 Route::prefix('product/')->group(function () {
     Route::group(['middleware' => ['adminAuth']], function () {
+        Route::GET('index',     [ProductController::class, 'index']);
+        Route::GET('show',      [ProductController::class, 'show']);
         Route::POST('storage',  [ProductController::class, 'storage']);
         Route::PUT('update',    [ProductController::class, 'update']);
         Route::DELETE('destroy', [ProductController::class, 'destroy']);
-        Route::GET('index',     [ProductController::class, 'index']);
-        Route::GET('show',      [ProductController::class, 'show']);
-        Route::GET('indexMoreSold', [ProductController::class, 'indexOfMoreSoldInMonth']);
-        Route::GET('indexOfProductForUser', [ProductController::class, 'indexOfProductForUser']);
     });
 });

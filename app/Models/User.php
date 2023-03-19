@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use OpenApi\Annotations as OA;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @OA\Schema(
+ *     title="User",
+ *     description="User model",
+ *     @OA\Xml(
+ *         name="User"
+ *     )
+ * )
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -41,15 +51,108 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at'
     ];
 
+    /**
+     * @OA\Property(
+     *     title="Id",
+     *     description="Id",
+     *     format="int64",
+     * )
+     *
+     * @var integer
+     */
     private int    $id;
+
+
+    /**
+     * @OA\Property(
+     *     title="Name",
+     *     description="Name",
+     *     format="string"
+     * )
+     *
+     * @var integer
+     */
     private string $name;
+
+    /**
+     * @OA\Property(
+     *     title="Last Name",
+     *     description="last Name",
+     *     format="string"
+     * )
+     *
+     * @var integer
+     */
     private string $lastName;
+
+    /**
+     * @OA\Property(
+     *     title="Cpf",
+     *     description="Cpf",
+     *     format="string"
+     * )
+     *
+     * @var integer
+     */
     private string $cpf;
+
+    /**
+     * @OA\Property(
+     *     title="Cpf",
+     *     description="Cpf",
+     *     format="datetime",
+     *     format="string"
+     * )
+     *
+     * @var string
+     */
     private string $dataBirth;
+
+    /**
+     * @OA\Property(
+     *     title="Cellphone",
+     *     description="Number of cellphone",
+     *     format="string"
+     * )
+     *
+     * @var string
+     */
     private string $cellphone;
+
+    /**
+     * @OA\Property(
+     *     title="Image",
+     *     description="Photo Perfil",
+     *     format="string"
+     * )
+     *
+     * @var string
+     */
     private string $image;
+
+    /**
+     * @OA\Property(
+     *     title="Email",
+     *     description="Your Email",
+     *     format="file"
+     * )
+     *
+     * @var string
+     */
     private string $email;
+
+    /**
+     * @OA\Property(
+     *     title="Password",
+     *     description="Your Password",
+     *     format="string"
+     * )
+     *
+     * @var string
+     */
     private string $password;
+
+
     private $rule_id;
     private string $email_verified_at;
 
