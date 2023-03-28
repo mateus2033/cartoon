@@ -5,6 +5,241 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/address/storage": {
+            "post": {
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Armazenar um novo endereço",
+                "description": "Armazena um novo endereço no sistema.",
+                "operationId": "0dfaf224a98abf3ae13c22fdaf47782a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "street": {
+                                        "type": "string",
+                                        "example": "Rua 99"
+                                    },
+                                    "number": {
+                                        "type": "string",
+                                        "example": "100"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Valaquia"
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": "MG"
+                                    },
+                                    "postalCode": {
+                                        "type": "string",
+                                        "example": "29111-599"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Address"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Ocorreu um erro interno no servidor."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/address/update": {
+            "put": {
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Atualizar um usuário",
+                "description": "Atualizar um endereço no sistema.",
+                "operationId": "f79783a2b4da5dc25695d988a6ac7b01",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "street": {
+                                        "type": "string",
+                                        "example": "Rual Valentia"
+                                    },
+                                    "number": {
+                                        "type": "intger",
+                                        "example": "150"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "São Benedito"
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": "MG"
+                                    },
+                                    "postalCode": {
+                                        "type": "string",
+                                        "example": "29484-898"
+                                    },
+                                    "user_id": {
+                                        "type": "intger",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Atualizar endereço",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Address"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Token sem autorização."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao atualizar o usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Erro de validação."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar o usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Erro interno no servidor."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/address/destroy": {
+            "delete": {
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Deletar o endereço de um usuario",
+                "description": "Deletar um endereço no sistema.",
+                "operationId": "2c6f5953b669d61a3763abb155abca84",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operation successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/account/login/": {
             "post": {
                 "tags": [
@@ -517,9 +752,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": [
-                            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hY2NvdW50XC9sb2dpbiIsImlhdCI6MTY3OTI0NDIxNSwiZXhwIjoxNjc5MjQ3ODE1LCJuYmYiOjE2NzkyNDQyMTUsImp0aSI6IjRsdkhYUEZzeWJFYTAyMkUiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.MumzXQs_Rfa2UMSEUDJtr-q4sOr--DclRLA9FUA2P5A"
-                        ]
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -1113,6 +1346,13 @@
     },
     "components": {
         "schemas": {
+            "Address": {
+                "title": "Address",
+                "description": "Address model",
+                "xml": {
+                    "name": "Address"
+                }
+            },
             "Product": {
                 "title": "Product",
                 "description": "Product model",

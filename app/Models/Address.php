@@ -5,6 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     title="Address",
+ *     description="Address model",
+ *     @OA\Xml(
+ *         name="Address"
+ *     )
+ * )
+ */
 class Address extends Model
 {
     use HasFactory;
@@ -26,13 +35,13 @@ class Address extends Model
     private string $city;
     private string $state;
     private string $country;
-    private string $postalCode;    
+    private string $postalCode;
     private int    $user_id;
 
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId(): int
     {
         return $this->id;
@@ -40,7 +49,7 @@ class Address extends Model
 
     /**
      * Set the value of id
-     */ 
+     */
     public function setId($id): void
     {
         $this->id = $id;
@@ -48,7 +57,7 @@ class Address extends Model
 
     /**
      * Get the value of street
-     */ 
+     */
     public function getStreet(): string
     {
         return $this->street;
@@ -57,7 +66,7 @@ class Address extends Model
     /**
      * Set the value of street
      *
-     */ 
+     */
     public function setStreet($street): void
     {
         $this->street = $street;
@@ -65,7 +74,7 @@ class Address extends Model
 
     /**
      * Get the value of number
-     */ 
+     */
     public function getNumber(): string
     {
         return $this->number;
@@ -74,7 +83,7 @@ class Address extends Model
     /**
      * Set the value of number
      *
-     */ 
+     */
     public function setNumber($number): void
     {
         $this->number = $number;
@@ -82,7 +91,7 @@ class Address extends Model
 
     /**
      * Get the value of city
-     */ 
+     */
     public function getCity(): string
     {
         return $this->city;
@@ -91,7 +100,7 @@ class Address extends Model
     /**
      * Set the value of city
      *
-     */ 
+     */
     public function setCity($city): void
     {
         $this->city = $city;
@@ -99,7 +108,7 @@ class Address extends Model
 
     /**
      * Get the value of state
-     */ 
+     */
     public function getState(): string
     {
         return $this->state;
@@ -108,7 +117,7 @@ class Address extends Model
     /**
      * Set the value of state
      *
-     */ 
+     */
     public function setState($state): void
     {
         $this->state = $state;
@@ -116,7 +125,7 @@ class Address extends Model
 
     /**
      * Get the value of country
-     */ 
+     */
     public function getCountry(): string
     {
         return $this->country;
@@ -125,7 +134,7 @@ class Address extends Model
     /**
      * Set the value of country
      *
-     */ 
+     */
     public function setCountry($country): void
     {
         $this->country = $country;
@@ -133,7 +142,7 @@ class Address extends Model
 
     /**
      * Get the value of postalCode
-     */ 
+     */
     public function getPostalCode(): string
     {
         return $this->postalCode;
@@ -142,7 +151,7 @@ class Address extends Model
     /**
      * Set the value of postalCode
      *
-     */ 
+     */
     public function setPostalCode($postalCode): void
     {
         $this->postalCode = $postalCode;
@@ -150,7 +159,7 @@ class Address extends Model
 
     /**
      * Get the value of user_id
-     */ 
+     */
     public function getUser_id(): int
     {
         return $this->user_id;
@@ -159,7 +168,7 @@ class Address extends Model
     /**
      * Set the value of user_id
      *
-     */ 
+     */
     public function setUser_id($user_id): void
     {
         $this->user_id = $user_id;
@@ -169,5 +178,4 @@ class Address extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
 }
