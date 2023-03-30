@@ -44,7 +44,7 @@ Route::prefix('user/')->group(function () {
 });
 
 Route::prefix('address/')->group(function () {
-    Route::group(['middleware' => []], function () {
+    Route::group(['middleware' => ['userAuth']], function () {
         Route::POST('storage',  [AddressController::class, 'storage']);
         Route::GET('index',     [AddressController::class, 'index']);
         Route::PUT('update',    [AddressController::class, 'update']);

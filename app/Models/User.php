@@ -345,6 +345,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Address::class, 'user_id');
     }
 
+    public function rules()
+    {
+        return $this->belongsTo(Rules::class, 'rule_id');
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -352,6 +357,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'id'   => $this->getAttribute('id'),
+            'rule'  =>  $this->getAttribute('rule_id'),
+        ];
     }
 }

@@ -240,81 +240,6 @@
                 ]
             }
         },
-        "/api/account/login/": {
-            "post": {
-                "tags": [
-                    "Session"
-                ],
-                "summary": "Log in to the application",
-                "operationId": "91f09f2d768c27c07ec2ed73edd7bc82",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "user@example.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "password"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Returns authentication token",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "access_token": {
-                                            "type": "string"
-                                        },
-                                        "token_type": {
-                                            "type": "string",
-                                            "example": "bearer"
-                                        },
-                                        "expires_in": {
-                                            "type": "integer"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "type": "string",
-                                            "example": "Unauthorized"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/product/index": {
             "get": {
                 "tags": [
@@ -322,7 +247,7 @@
                 ],
                 "summary": "Listar produtos",
                 "description": "Retorna uma lista de produtos",
-                "operationId": "2aa9a961d000b298a8e18cd347c5ce24",
+                "operationId": "8505fe7d5dae59cb01311bc20b965ebc",
                 "responses": {
                     "200": {
                         "description": "Lista de produtos"
@@ -340,7 +265,7 @@
                 ],
                 "summary": "Listar produtos",
                 "description": "Retorna uma lista de produtos",
-                "operationId": "fff57a495dc9a2facbc2673ff1e4c51a",
+                "operationId": "cbba1b00fbe1f618a4f1b9046c70f94f",
                 "responses": {
                     "200": {
                         "description": "Lista de produtos"
@@ -358,7 +283,7 @@
                 ],
                 "summary": "Lista os produtos mais vendidos",
                 "description": "Lista os produtos mais vendidos",
-                "operationId": "9edf0e6c5ad88f6a4d0c8987edafcc32",
+                "operationId": "e774aa730ec43ba54153854927b95ba4",
                 "responses": {
                     "200": {
                         "description": "Lista de produtos"
@@ -375,7 +300,7 @@
                     "Products"
                 ],
                 "summary": "Get product information",
-                "operationId": "cf6632144ae9cac301839b1a925f29b7",
+                "operationId": "a7db11b455c219a378559c3f6962485f",
                 "parameters": [
                     {
                         "name": "product_id",
@@ -475,7 +400,7 @@
                 ],
                 "summary": "Armazenar um novo produto",
                 "description": "Armazena um novo produto no sistema.",
-                "operationId": "a7dae1ae99031ad98ed7c27e0c13f4c4",
+                "operationId": "cda3112e0f184c6e5608ba5443e9d66a",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -552,7 +477,7 @@
                 ],
                 "summary": "Atualizar um produto",
                 "description": "Atualizar um novo produto no sistema.",
-                "operationId": "e1ef0c392bc281c0b1cca48adb5a23e4",
+                "operationId": "6fddc089128000c3d98bdeaf84a59484",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -670,7 +595,7 @@
                 ],
                 "summary": "Deletar um usuário",
                 "description": "Atualizar um novo usuário no sistema.",
-                "operationId": "67cfda5d0a8413107c20aae9ee29cb2c",
+                "operationId": "223fa8289a08e60631c018111d2eea2a",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -757,6 +682,81 @@
                 ]
             }
         },
+        "/api/account/login/": {
+            "post": {
+                "tags": [
+                    "Session"
+                ],
+                "summary": "Log in to the application",
+                "operationId": "a185910414d6c4ab069589d1b2441ca3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns authentication token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/user/listUser": {
             "get": {
                 "tags": [
@@ -764,7 +764,7 @@
                 ],
                 "summary": "Listar usuários",
                 "description": "Retorna uma lista de usuários",
-                "operationId": "43d9f3dfd61538ac277ed191284b8856",
+                "operationId": "a6dcdd5a23dfdea98daeea0230abb3e2",
                 "responses": {
                     "200": {
                         "description": "Lista de usuários"
@@ -785,7 +785,7 @@
                 ],
                 "summary": "Armazenar um novo usuário",
                 "description": "Armazena um novo usuário no sistema.",
-                "operationId": "2d66ce3ed7440c5bcae5483d532e7098",
+                "operationId": "18d420c932e01d278a17de6622f7fe98",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -853,7 +853,7 @@
                     "Users"
                 ],
                 "summary": "Get user information",
-                "operationId": "5b2f8d2790414ef59a6903edac64a1da",
+                "operationId": "d976ba8925b449223c79e2cf3b211a1c",
                 "parameters": [
                     {
                         "name": "user_id",
@@ -962,7 +962,7 @@
                 ],
                 "summary": "Atualizar um usuário",
                 "description": "Atualizar um novo usuário no sistema.",
-                "operationId": "0cfc432c796157e79e418318091f4305",
+                "operationId": "450ce13e41a1919765f54ef1cecf68ec",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1076,7 +1076,7 @@
                 ],
                 "summary": "Deletar um usuário",
                 "description": "Atualizar um novo usuário no sistema.",
-                "operationId": "bcfdd09e84d8e398501bbe9e2a9cbc16",
+                "operationId": "d3616c1a517aa74e182b5a13d35a425f",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1170,7 +1170,7 @@
                 ],
                 "summary": "Atualizar foto do perfil",
                 "description": "Atualizar foto do perfil de usuário.",
-                "operationId": "64eb33a9876d090159def75afaa9ccb3",
+                "operationId": "a9a3de597a29dddb172c1c027f3cd53d",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1269,7 +1269,7 @@
                 ],
                 "summary": "Remover foto do perfil",
                 "description": "Remover foto do perfil de usuário.",
-                "operationId": "eacdd748590bdd81062a007c7e47af62",
+                "operationId": "43ef4607b9fb346e6af0b17415046f3e",
                 "requestBody": {
                     "required": true,
                     "content": {

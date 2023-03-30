@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Utils\ConstantMessage\ConstantPermissionMessage;
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
@@ -22,13 +23,26 @@ class ProtectedUserRoute
     public function handle(Request $request, Closure $next)
     {
         try {
+            $this->me();
             JWTAuth::parseToken()->authenticate();
         } catch (\Exception $e) {
             if ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException) {
-                return response()->json(['status' => 'Token is Expired']);
+                return response()->json(['status' => ConstantPermissionMessage::TOKEN_EXPIRED]);
             }
             return response()->json(['status' => ConstantPermissionMessage::TOKEN_NOT_FOUND]);
         }
         return $next($request);
+    }
+
+    public function me()
+    {
+        $auth = response()->json(auth('api')->user());
+        if (!isset($auth->original->rule_id)) {
+            throw new Exception(ConstantPermissionMessage::AUTHORIZATION_NOT_FOUND, 401);
+        }
+
+        if ($auth->original->rule_id !== 2) {
+            throw new Exception(ConstantPermissionMessage::USER_NOT_PERMISSION, 401);
+        }
     }
 }
