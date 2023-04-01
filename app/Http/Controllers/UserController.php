@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\User\UserResource;
 use App\Models\User;
+use App\Http\Resources\User\UserResource;
 use App\Services\User\UserService;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ErroMensage\ErroMensage;
 use App\Utils\SuccessMessage\SuccessMessage;
 use Illuminate\Http\Request;
-use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-
+use Exception;
 
 class UserController extends Controller
 {
@@ -118,5 +117,5 @@ class UserController extends Controller
         DB::commit();
         $user = new UserResource($user);
         return $user;
-    }
+    }  
 }

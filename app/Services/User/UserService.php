@@ -10,6 +10,7 @@ use App\Repository\Address\AddressRepository;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ConstantMessage\ConstantPath;
 use App\Utils\ManagePath\ManagePath;
+use App\Utils\PermissionValue\PermissionValue;
 use App\Utils\SuccessMessage\SuccessMessage;
 use Exception;
 
@@ -65,7 +66,7 @@ class UserService implements UserServiceInterface
     public function showUserById(int $user_id)
     {
         $user = $this->userRepository->findById($user_id);
-        if (!is_null($user)) {
+        if (!is_null($user) && $user->rule_id == PermissionValue::USER_PERMISSION) {
             return $user;
         }
         throw new Exception(ConstantMessage::USERNOTFOUND, 404);
@@ -74,7 +75,7 @@ class UserService implements UserServiceInterface
     public function getUserById(int $user_id)
     {
         $user = $this->userRepository->findById($user_id);
-        if (!is_null($user)) {
+        if (!is_null($user) && $user->rule_id == PermissionValue::USER_PERMISSION) {
             return $user->load('address');
         }
         return false;
@@ -161,4 +162,5 @@ class UserService implements UserServiceInterface
         }
         return SuccessMessage::sucessMessage(ConstantMessage::OPERATION_SUCCESSFULLY);
     }
+
 }
