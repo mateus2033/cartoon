@@ -3,6 +3,9 @@
 namespace App\Services\Administrator;
 
 use App\Models\User;
+use App\Utils\LogsInfo\MessageLog;
+use App\Utils\LogsInfo\OriginLog;
+use Illuminate\Support\Facades\Log;
 use App\Utils\ManagePath\ManagePath;
 use App\Utils\ConstantMessage\ConstantPath;
 use App\Repository\User\UserRepository;
@@ -36,6 +39,7 @@ class AdministratorService implements AdministratorServiceInterface
         $administrator = $this->administratorValidationForSaveService->validateFormAdministrator($data);
         if (is_array($administrator)) {
             $user = $this->userRepository->create($administrator);
+            Log::channel('adm')->debug(OriginLog::ADM_SERVICE_CREATE,[MessageLog::ADM_SAVED, $user->cpf]);
             return $user;
         }
 
@@ -67,6 +71,7 @@ class AdministratorService implements AdministratorServiceInterface
         }
 
         $this->userRepository->update($getAdm, $administrator);
+        Log::channel('adm')->debug(OriginLog::ADM_SERVICE_CREATE,[MessageLog::ADM_UPDATED, $getAdm->cpf]);
         return $getAdm;
     }
 
@@ -79,6 +84,7 @@ class AdministratorService implements AdministratorServiceInterface
 
         $this->preprareToRemovePath($administrator);
         $this->userRepository->destroy($administrator->id);
+        Log::channel('adm')->debug(OriginLog::ADM_SERVICE_DELETE,[MessageLog::ADM_DELETED, $administrator->cpf]);
         return ConstantMessage::OPERATION_SUCCESSFULLY;
     }
 

@@ -5,11 +5,10 @@ namespace App\Repository\BankData;
 use App\Interfaces\BankData\BankDataRepositoryInterface;
 use App\Models\BankData;
 
-class BankDataRepository implements BankDataRepositoryInterface {
+class BankDataRepository implements BankDataRepositoryInterface
+{
 
-    
     protected BankData $model;
-    
 
     public function __construct(BankData $model)
     {
@@ -31,14 +30,13 @@ class BankDataRepository implements BankDataRepositoryInterface {
         return $this->model->create($data);
     }
 
-    public function update(array $data)
+    public function update(BankData $user, array $data)
     {
-        return $this->model->update($data);
+        return $user->update($data);
     }
 
     public function destroy(int $id)
     {
         return $this->model->destroy($id);
     }
-
 }

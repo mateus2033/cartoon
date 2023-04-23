@@ -67,6 +67,24 @@ return [
             'days' => 14,
         ],
 
+        'user' => [
+            'driver' => 'single',
+            'path'   =>  storage_path('logs/user/user.log'),
+            'level'  => 'debug',
+        ],
+
+        'adm' => [
+            'driver' => 'single',
+            'path'   => storage_path('logs/adm/adm.log'),
+            'level'  => 'debug',
+        ],
+
+        'session' => [
+            'driver' => 'single',
+            'path'   => storage_path('logs/session/session.log'),
+            'level'  => 'debug',
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

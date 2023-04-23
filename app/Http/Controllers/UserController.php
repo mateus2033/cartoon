@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     public function storage(Request $request)
-    {
+    {   
         try {
             DB::beginTransaction();
             $user = $request->only($this->userModel->getModel()->getFillable());

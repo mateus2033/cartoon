@@ -12,7 +12,9 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "tymon/jwt-auth": "1.0.2"
+        "tymon/jwt-auth": "1.0.2",
+        "phpmailer/phpmailer": "6.0.3",
+        "monolog/monolog": "^2.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -27,7 +29,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files":[
+            "App/Utils/SendEmail/Config.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

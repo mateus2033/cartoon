@@ -6,12 +6,16 @@ use App\Models\User;
 use App\Utils\ErroMensage\ErroMensage;
 use App\Repository\User\UserRepository;
 use App\Interfaces\User\UserServiceInterface;
+use App\Jobs\SendEmail;
 use App\Repository\Address\AddressRepository;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ConstantMessage\ConstantPath;
+use App\Utils\LogsInfo\MessageLog;
+use App\Utils\LogsInfo\OriginLog;
 use App\Utils\ManagePath\ManagePath;
 use App\Utils\PermissionValue\PermissionValue;
 use App\Utils\SuccessMessage\SuccessMessage;
+use Illuminate\Support\Facades\Log;
 use Exception;
 
 class UserService implements UserServiceInterface
@@ -54,9 +58,11 @@ class UserService implements UserServiceInterface
         $user = $this->userValidationForSaveService->validateFormUser($data);
         if (is_array($user)) {
             $user = $this->userRepository->create($user);
+            SendEmail::dispatch($user);
+            Log::channel('user')->debug(OriginLog::USER_SERVICE_CREATE,[MessageLog::USER_SAVED, $user->cpf]);
             return $user;
         }
-
+         
         if (!empty($user->fileName)) {
             unlink(public_path(ConstantPath::PERFIL_PATH . $user->fileName));
         }
@@ -92,6 +98,7 @@ class UserService implements UserServiceInterface
         $user = $this->showUserById($userValid['id']);
         if ($user) {
             $user->update($userValid);
+            Log::channel('user')->debug(OriginLog::USER_SERVICE_UPDATE,[MessageLog::USER_UPDATED, $user->cpf]);
             return $user;
         }
     }
@@ -101,6 +108,7 @@ class UserService implements UserServiceInterface
         $user = $this->showUserById($user_id);
         $this->destroyUserAddress($user->load('address'));
         $this->userRepository->destroy($user->id);
+        Log::channel('user')->debug(OriginLog::USER_SERVICE_DELETE,[MessageLog::USER_DELETED, $user->cpf]);
         return true;
     }
 
