@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdministratorController;
+use App\Http\Middleware\ProtectedAdmRoute;
+use App\Http\Middleware\ProtectedUserRoute;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +31,8 @@ Route::prefix('/cartoon')->group(function () {
 });
 
 Route::prefix('/administrator')->group(function () {
-    Route::group(['middleware' => []], function () {
+    Route::group(['middleware' => ['adminAuth']], function () {
+        Route::POST('logout',[ProtectedAdmRoute::class,'logout']);
         Route::GET('show', [AdministratorController::class, 'showAdministrator']);
         Route::PUT('update', [AdministratorController::class, 'updateAdministrator']);
         Route::DELETE('delete', [AdministratorController::class, 'destroyAdministrator']);
@@ -39,6 +42,7 @@ Route::prefix('/administrator')->group(function () {
 
 Route::prefix('user/')->group(function () {
     Route::group(['middleware' => ['userAuth']], function () {
+        Route::POST('logout', [ProtectedUserRoute::class,'logout']);
         Route::GET('listUser',   [UserController::class, 'listUser']);
         Route::GET('show',       [UserController::class, 'show']);
         Route::PUT('update',     [UserController::class, 'update']);

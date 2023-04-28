@@ -23,4 +23,9 @@ class ConstantPermissionMessage {
      * @var string TOKEN_NOT_FOUND
      */
     const TOKEN_NOT_FOUND = 'Authorization Token not found';
+
+    /**
+     * @var string LOGOUT 
+     */
+    const LOGOUT = 'Successfully logged out';
 }

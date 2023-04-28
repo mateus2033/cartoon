@@ -45,4 +45,17 @@ class ProtectedUserRoute
             throw new Exception(ConstantPermissionMessage::USER_NOT_PERMISSION, 401);
         }
     }
+
+    public function logout()
+    {
+        try {
+            auth('api')->logout();
+            return response()->json(['message' => ConstantPermissionMessage::LOGOUT]);
+        } catch (\Exception $e) {
+            if ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException) {
+                return response()->json(['status' => ConstantPermissionMessage::TOKEN_EXPIRED]);
+            }
+            return response()->json(['status' => $e->getMessage()]);
+        }
+    }
 }
