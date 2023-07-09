@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\Acquisitions\AcquisitionsRepositoryInterface;
 use App\Interfaces\Address\AddressRepositoryInterface;
+use App\Interfaces\Bank\BankRepositoryInterface;
 use App\Interfaces\BankData\BankDataRepositoryInterface;
 use App\Interfaces\Carts\CartsRepositoryInterface;
 use App\Interfaces\Category\CategoryRepositoryInterface;
@@ -14,6 +15,7 @@ use App\Interfaces\Stock\StockRepositoryInterface;
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Repository\Acquisitions\AcquisitionsRespository;
 use App\Repository\Address\AddressRepository;
+use App\Repository\Bank\BankRepository;
 use App\Repository\BankData\BankDataRepository;
 use App\Repository\Carts\CartRepository;
 use App\Repository\Category\CategoryRepository;
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(StockRepositoryInterface::class, StockRepository::class);
         $this->app->bind(ProductPhotosInterface::class, ProductPhotosRepository::class);
+        $this->app->bind(BankRepositoryInterface::class, BankRepository::class); 
         $this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
     }
 

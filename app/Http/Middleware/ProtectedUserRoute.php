@@ -21,7 +21,7 @@ class ProtectedUserRoute
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {
+    {   
         try {
             $this->me();
             JWTAuth::parseToken()->authenticate();
@@ -35,13 +35,15 @@ class ProtectedUserRoute
     }
 
     public function me()
-    {
+    {   
         $auth = response()->json(auth('api')->user());
-        if (!isset($auth->original->rule_id)) {
+        $permission = $auth->original->rules->permission;
+        
+        if (!isset($permission)) {
             throw new Exception(ConstantPermissionMessage::AUTHORIZATION_NOT_FOUND, 401);
         }
 
-        if ($auth->original->rule_id !== 2) {
+        if ($permission !== "user") {
             throw new Exception(ConstantPermissionMessage::USER_NOT_PERMISSION, 401);
         }
     }

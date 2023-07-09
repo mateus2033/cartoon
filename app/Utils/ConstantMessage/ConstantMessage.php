@@ -198,4 +198,5 @@ class ConstantMessage
      * @var string INVALID_NUMBER_PHOTOS
      */
     const INVALID_NUMBER_PHOTOS = 'Invalid numbers of photos';
+
 }

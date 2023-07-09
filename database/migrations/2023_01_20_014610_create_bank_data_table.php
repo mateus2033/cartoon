@@ -20,6 +20,8 @@ class CreateBankDataTable extends Migration
             $table->integer('number_security')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('bank_id')->unsigned();
+            $table->foreign('bank_id')->references('id')->on('banks');
             $table->timestamps();
         });
     }
