@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Throwable;
 
 class SendEmail implements ShouldQueue
 {
@@ -37,5 +38,10 @@ class SendEmail implements ShouldQueue
     {
         $enviaEmail = new Email(); 
         $enviaEmail->add(MessageEmail::$subject, MessageEmail::$body, $this->user->name, $this->user->email)->send();
+    }
+
+    public function failed(Throwable $e)
+    {
+        
     }
 }

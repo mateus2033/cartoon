@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'image' => 'd043b2065e9ecf6d152a878703b364cc.jpg',
             'email' => 'mateus@mateus.com',
             'password' => Hash::make('12345678'),
-            'rule_id' => 1
+            'rule_id' => 2
         ]);
     }
 }

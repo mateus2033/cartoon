@@ -30,9 +30,9 @@ class BankDataRepository implements BankDataRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function update(BankData $user, array $data)
+    public function update(BankData $bankData, array $data)
     {
-        return $user->update($data);
+        return $bankData->update($data);
     }
 
     public function destroy(int $id)

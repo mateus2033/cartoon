@@ -1,9 +1,9 @@
 <?php
+
 namespace App\Utils\ConstantMessage;
 
-class ConstantPermissionMessage {
-
-
+class ConstantPermissionMessage
+{
     /**
      * @var string TOKEN_EXPIRED
      */
@@ -28,4 +28,9 @@ class ConstantPermissionMessage {
      * @var string LOGOUT 
      */
     const LOGOUT = 'Successfully logged out';
+
+    /**
+     * @var int INVALID_OPERATION
+     */
+    const INVALID_OPERATION = 'Informed user is invalid';
 }
