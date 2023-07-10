@@ -11,6 +11,7 @@ class BankData extends Model
 
     protected $table = 'bank_data';
     protected $fillable = [
+        'id',
         'number_card',
         'number_agency',
         'number_security',
@@ -18,12 +19,30 @@ class BankData extends Model
         'bank_id'
     ];
 
+    private int $id;
     private int $number_card;
     private int $number_agency;
     private int $number_security;
     private int $user_id;
     private int $bank_id;
 
+
+    /**
+     * Get the value of id
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * Get the value of number_card
@@ -106,5 +125,10 @@ class BankData extends Model
     public function setBank_id($bank_id): void
     {
         $this->bank_id = $bank_id;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

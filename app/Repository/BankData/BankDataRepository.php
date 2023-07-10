@@ -7,8 +7,8 @@ use App\Models\BankData;
 
 class BankDataRepository implements BankDataRepositoryInterface
 {
-
-    protected BankData $model;
+    private int $user;
+    protected BankData $model;   
 
     public function __construct(BankData $model)
     {
@@ -16,8 +16,8 @@ class BankDataRepository implements BankDataRepositoryInterface
     }
 
     public function getAll()
-    {
-        return $this->model->all();
+    {   
+        return $this->model->all()->where('user_id','=', auth('api')->user()->id);
     }
 
     public function findById(int $id)

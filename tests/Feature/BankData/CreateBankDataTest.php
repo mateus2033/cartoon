@@ -8,10 +8,9 @@ use Illuminate\Http\Response;
 
 class CreateBankDataTest extends TestCase 
 {
-
-    protected $rule;
-    protected $user;
-    protected string $token;
+    private $rule;
+    private $user;
+    private string $token;
 
     public function execute(array $payload)
     {   
@@ -41,6 +40,12 @@ class CreateBankDataTest extends TestCase
             $bank->toArray()
         );
         
-        $this->execute($payload)->assertStatus(Response::HTTP_CREATED);    
+        $this->execute($payload)->assertStatus(Response::HTTP_CREATED);  
+        $this->assertDatabaseHas('bank_data', [
+            'number_card'     => $bankData->number_card, 
+            'number_agency'   => $bankData->number_agency, 
+            'number_security' => $bankData->number_security, 
+            'user_id' => $bankData->user_id
+        ]);  
     }
 }

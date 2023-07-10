@@ -12,12 +12,14 @@ use Illuminate\Support\Facades\DB;
 use App\Utils\ErroMensage\ErroMensage;
 use App\Services\BankData\BankDataService;
 use Illuminate\Database\Eloquent\Collection;
-use App\Http\Resources\BankData\BankDataIndexResource;
-use App\Http\Resources\BankData\BankDataShowResource;
-use App\Http\Resources\BankData\BankDataStorageResource;
 use App\Utils\ConstantMessage\bankData\BankDataMessage;
-use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\SuccessMessage\SuccessMessage;
+use App\Http\Resources\BankData\{
+    BankDataIndexResource,
+    BankDataShowResource,
+    BankDataStorageResource,
+    BankDataUpdateResource
+};
 
 class BankDataController extends Controller
 {
@@ -36,7 +38,7 @@ class BankDataController extends Controller
     }
 
     public function index(Request $request)
-    {   
+    {
         $response = $this->bankDataService->index($request->page);
         if ($response instanceof Collection)
             return response()->json(new BankDataIndexResource($response),  Response::HTTP_OK);
@@ -74,7 +76,20 @@ class BankDataController extends Controller
 
     public function update(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $bank = $request->only($this->bankModel->getModel()->getFillable());
+            $bankData = $request->only($this->bankDataModel->getModel()->getFillable());
+            $bankData = $this->bankDataService->manageUpdateBankData($bankData, $bank);
+            if ($bankData instanceof BankData) {
+                DB::commit();
+                return response()->json(new BankDataUpdateResource($bankData), Response::HTTP_OK);
+            }
+            return response()->json($bankData, Response::HTTP_BAD_REQUEST);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return ErroMensage::errorMessage($e->getMessage(), $e->getCode());
+        }
     }
 
     public function delete(Request $request)

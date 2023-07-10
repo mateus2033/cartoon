@@ -10,6 +10,7 @@ use App\Utils\ConstantMessage\bank\BankMessage;
 use App\Utils\ConstantMessage\bankData\BankDataMessage;
 use App\Utils\ErroMensage\ErroMensage;
 use App\Utils\SuccessMessage\SuccessMessage;
+use App\Services\BankData\BankDataValidationForUpdateService;
 
 class BankDataService implements BankDataServiceInterface
 {
@@ -18,20 +19,23 @@ class BankDataService implements BankDataServiceInterface
     private BankRepositoryInterface $bankRepository;
     private BankValidationForSaveService $bankSaveService;
     private BankDataValidationForSaveService $bankDataSaveService;
+    private BankDataValidationForUpdateService $bankDataUpdateService;
 
     public function __construct(
         BankRepositoryInterface $bankRepository,
         BankDataRepositoryInterface $bankDataRepository,
         BankValidationForSaveService $bankSaveService,
-        BankDataValidationForSaveService $bankDataSaveService
+        BankDataValidationForSaveService $bankDataSaveService,
+        BankDataValidationForUpdateService $bankDataUpdateService
     ) {
         $this->bankRepository = $bankRepository;
         $this->bankDataRepository = $bankDataRepository;
         $this->bankDataSaveService = $bankDataSaveService;
         $this->bankSaveService = $bankSaveService;
+        $this->bankDataUpdateService = $bankDataUpdateService;
     }
 
-    public function index($paginate)
+    public function index($page)
     {
         $response = $this->bankDataRepository->getAll();
         if (!$response->isEmpty())
@@ -49,21 +53,56 @@ class BankDataService implements BankDataServiceInterface
             return ErroMensage::errorMessage(BankDataMessage::BANK_DATA_NOT_FOUND);
     }
 
+    public function getBankDataOfUserSession(int $bankDataId)
+    {
+        $bankData = $this->bankDataRepository->findById($bankDataId);
+        if (is_null($bankData)) {
+            return ErroMensage::errorMessage(BankDataMessage::BANK_DATA_NOT_FOUND);
+        }
+       
+        if (auth('api')->user()->id != $bankData->user->id) {
+            return ErroMensage::errorMessage(BankDataMessage::USER_WITHOUT_PERMISSION);
+        }
+        return $bankData;
+    }
+
     public function manageStorageBankData(array $data, array $bank)
     {
         $bankData = $this->bankDataSaveService->validFormBankData($data);
         if (!is_array($bankData)) {
             return ErroMensage::errorMultipleMessage($bankData->message);
         }
-        
+
         $bank = $this->getBank($bank);
-        if (is_null($bank)) {
-            $bankData = $this->bankDataRepository->create($bankData);
+        if (is_array($bank)) {
+            return $bank;
         }
-        
+
         $bankData['bank_id'] = $bank->id;
-        $response = $this->bankDataRepository->create($bankData);
-        return $response;
+        $bankData = $this->bankDataRepository->create($bankData);
+        return $bankData;
+    }
+
+    public function manageUpdateBankData(array $data, array $bank)
+    {
+        $data = $this->bankDataUpdateService->validFormBankData($data);
+        if (!is_array($data)) {
+            return ErroMensage::errorMultipleMessage($data->message);
+        }
+
+        $bankData = $this->getBankDataOfUserSession($data['id']);
+        if (is_array($bankData)) {
+            return $bankData;
+        }
+
+        $bank = $this->getBank($bank);
+        if (is_array($bank)) {
+            return $bank;
+        }
+
+        $bankData['bank_id'] = $bank->id;
+        $this->bankDataRepository->update($bankData, $data);
+        return $bankData;
     }
 
     private function getBank(array $bank)

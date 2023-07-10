@@ -8,9 +8,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class IndexBankDataTest extends TestCase 
 {
-    protected $rule;
-    protected $user;
-    protected string $token;
+    private $rule;
+    private $user;
+    private string $token;
 
     public function execute($page)
     {   
