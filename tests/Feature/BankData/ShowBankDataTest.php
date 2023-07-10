@@ -8,9 +8,9 @@ use Illuminate\Http\Response;
 
 class ShowBankDataTest extends TestCase
 {
-    protected $rule;
-    protected $user;
-    protected string $token;
+    private $rule;
+    private $user;
+    private string $token;
 
     public function execute($id)
     {
@@ -32,5 +32,13 @@ class ShowBankDataTest extends TestCase
         $bankData = $this->bankData()->setUserId($this->user->id)->create();
 
         $this->execute($bankData->id)->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseHas('bank_data', [
+            'id'              => $bankData->id, 
+            'number_card'     => $bankData->number_card, 
+            'number_agency'   => $bankData->number_agency, 
+            'number_security' => $bankData->number_security, 
+            'user_id' => $bankData->user_id, 
+            'bank_id' => $bankData->bank_id, 
+        ]);
     }
 }

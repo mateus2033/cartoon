@@ -3,18 +3,19 @@
 namespace Tests\Feature\BankData;
 
 use Tests\TestCase;
-use Illuminate\Http\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Http\Response;
 
-class DestroyBankDataTest extends TestCase
+
+class UpdateBankDataTest extends TestCase
 {
     private $rule;
     private $user;
     private string $token;
 
-    public function execute($payload)
+    public function execute(array $payload)
     {
-        return $this->deleteJson(route('bank.data.delete'), $payload, ['authorization' => 'Bearer ' . $this->token, 'Accept' => 'application/json']);
+        return $this->putJson(route('bank.data.update'), $payload, ['authorization' => 'Bearer ' . $this->token, 'Accept' => 'application/json']);
     }
 
     public function setUp(): void
@@ -26,18 +27,21 @@ class DestroyBankDataTest extends TestCase
     }
 
     /** @test*/
-    public function is_should_delete_bank_data_in_database()
+    public function is_should_update_bank_data_in_database()
     {
-        /** @var BankData $bankData */
-        $bankData = $this->bankData()->setUserId($this->user->id)->create();
+        /** @var bank $bank */
+        $bank = $this->bank()->setActive('Y')->setName('Sicoob')->setCode('337')->create();
 
-        $payload = [
-            'user_id'     => $this->user->id,
-            'bankdata_id' => $bankData->id   
-        ];
+        /** @var BankData $bankData */
+        $bankData = $this->bankData()->setUserId($this->user->id)->setBankId($bank->id)->create();
+
+        $payload = array_merge(
+            $bankData->toArray(),
+            $bank->toArray()
+        );
 
         $this->execute($payload)->assertStatus(Response::HTTP_OK);
-        $this->assertDatabaseMissing('bank_data', [
+        $this->assertDatabaseHas('bank_data', [
             'id'              => $bankData->id, 
             'number_card'     => $bankData->number_card, 
             'number_agency'   => $bankData->number_agency, 

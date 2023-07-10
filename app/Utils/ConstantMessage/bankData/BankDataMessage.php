@@ -28,4 +28,9 @@ class BankDataMessage {
      * @var string ERRO_TO_DELETE_BANK_DATA
      */
     const ERRO_TO_DELETE_BANK_DATA = 'Erro to delete bank data';
+
+    /**
+     * @var string USER_WITHOUT_PERMISSION
+     */
+    const USER_WITHOUT_PERMISSION = 'The logged in user does not have permission to perform this action';
 }

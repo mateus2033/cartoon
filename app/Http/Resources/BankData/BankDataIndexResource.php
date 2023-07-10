@@ -20,12 +20,13 @@ class BankDataIndexResource extends JsonResource
         $bankDataResult = [];
 
         foreach ($bankDatas as $bankData) {
-           
+
             $bankDataAux['id']       = $bankData->id;
             $bankDataAux['card']     = $bankData->number_card;
             $bankDataAux['agency']   = $bankData->number_agency;
             $bankDataAux['security'] = $bankData->number_security;
-            $bankDataAux['bank']  = $bankData->bank_id;
+            $bankDataAux['user']     = $bankData->user_id;
+            $bankDataAux['bank']     = $bankData->bank_id;
             $bankDataResult[] = $bankDataAux;
         }
         return $bankDataResult;
