@@ -28,7 +28,7 @@ class AddressController extends Controller
 
     public function index(Request $request)
     {
-        $user_id  = (int) $request->user_id;
+        $user_id  = auth('api')->user()->id;
         $response = $this->addressService->listAddress($user_id);
         if(!is_array($response))
         {
@@ -141,7 +141,7 @@ class AddressController extends Controller
             $address = $request->only($this->addressModel->getModel()->getFillable());
             $address = $this->addressService->manageUpdateAddress($address);
             if($address instanceof Address) {
-                return response()->json($this->responseAddress($address), Response::HTTP_CREATED);
+                return response()->json($this->responseAddress($address), Response::HTTP_OK);
             }
             return response()->json($address, Response::HTTP_BAD_REQUEST);
         }catch(Exception $e) {
@@ -190,7 +190,7 @@ class AddressController extends Controller
     {
         try{
             $address_id = (int) $request->id;
-            $user_id    = (int) $request->user_id;
+            $user_id    = auth('api')->user()->id;
             $response   = $this->addressService->manageDeleteAddress($address_id, $user_id);
             return response()->json($response, Response::HTTP_OK);
         }catch(Exception $e) {

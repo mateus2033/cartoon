@@ -190,8 +190,7 @@ class AddressValidationForSaveService extends Address
             return ConstantMessage::ONLY_INTEGER;
         }
 
-        $user = $this->userService->getUserById($user_id);
-        if (!$user) {
+        if(auth('api')->user()->id !== $user_id) {   
             return ConstantMessage::USERNOTFOUND;
         }
 
