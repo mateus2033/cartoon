@@ -215,11 +215,11 @@ class AddressValidationForUpdateService extends Address
             return ConstantMessage::ONLY_INTEGER;
         }
 
-        $user = $this->userService->getUserById($user_id);
+        $user = auth('api')->user();
         if (!$user) {
             return ConstantMessage::USERNOTFOUND;
         }
-
+        
         $this->setUser_id($user_id);
         $this->user = $user;
         return null;

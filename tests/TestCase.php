@@ -8,6 +8,7 @@ use Tests\Builders\BankData\BankDataBuilder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\Builders\Address\AddressBuilder;
 use Tests\Builders\Bank\BankBuilder;
 use Tests\Builders\Rules\RulesBuilder;
 
@@ -33,6 +34,11 @@ abstract class TestCase extends BaseTestCase {
     public function rules(): RulesBuilder
     {
         return new RulesBuilder;
+    }
+
+    public function address(): AddressBuilder 
+    {
+        return new AddressBuilder;
     }
 }
 
