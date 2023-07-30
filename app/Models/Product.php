@@ -5,15 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @OA\Schema(
- *     title="Product",
- *     description="Product model",
- *     @OA\Xml(
- *         name="Product"
- *     )
- * )
- */
 class Product extends Model
 {
     use HasFactory;
@@ -33,68 +24,41 @@ class Product extends Model
     private string $category_id;
 
 
-    /**
-     * Get the value of id
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set the value of id
-     */
     public function setId($id)
     {
         $this->id = $id;
     }
 
-    /**
-     * Get the value of name
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Set the value of name
-     *
-     */
     public function setName($name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * Get the value of price
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * Set the value of price
-     *
-     */
     public function setPrice($price): void
     {
         $this->price = $price;
     }
 
-    /**
-     * Get the value of category_id
-     */
     public function getCategory_id(): int
     {
         return $this->category_id;
     }
 
-    /**
-     * Set the value of category_id
-     *
-     */
     public function setCategory_id($category_id): void
     {
         $this->category_id = $category_id;
