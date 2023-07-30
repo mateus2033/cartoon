@@ -57,7 +57,7 @@ class BankDataController extends Controller
     }
 
     public function storage(Request $request)
-    {
+    {   
         try {
             DB::beginTransaction();
             $bank = $request->only($this->bankModel->getModel()->getFillable());

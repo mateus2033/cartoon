@@ -2,18 +2,16 @@
 
 namespace Database\Seeders;
 
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-
         $this->call([
             RuleSeeder::class,
             CategorySeeder::class,
@@ -23,6 +21,6 @@ class DatabaseSeeder extends Seeder
             BankSeeder::class
         ]);
 
-        \App\Models\Acquisitions::factory(20)->create();
+       \App\Models\Acquisitions::factory(20)->create();
     }
 }

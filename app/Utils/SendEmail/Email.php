@@ -2,6 +2,7 @@
 
 namespace App\Utils\SendEmail;
 
+use App\Utils\SendEmail\Config;
 use PHPMailer\PHPMailer\PHPMailer;
 use Exception;
 use stdClass;
@@ -30,10 +31,10 @@ class Email
         $this->mail->SMTPAuth = true;
         $this->mail->SMTPSecure = "TLS";
         $this->mail->CharSet = "utf-8";
-        $this->mail->Host = MAIL["host"];
-        $this->mail->Port = MAIL["port"];
-        $this->mail->Username = MAIL["user"];
-        $this->mail->Password = MAIL['password'];
+        $this->mail->Host = Config::HOST;
+        $this->mail->Port = Config::PORT;
+        $this->mail->Username = Config::USER;
+        $this->mail->Password = Config::PASSWORD;
     }
 
     /**
@@ -72,7 +73,7 @@ class Email
      * @param array $from_email
      * @return bool
      */
-    public function send(string $from_name = MAIL["from_name"], string $from_email = MAIL["from_email"]): bool
+    public function send(string $from_name = Config::FROM_NAME, string $from_email = Config::FROM_EMAIL): bool
     {   
         try {
             $this->mail->Subject = $this->data->subject;

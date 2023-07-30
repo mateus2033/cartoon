@@ -187,8 +187,8 @@ class AddressController extends Controller
      * )
      */
     public function destroy(Request $request)
-    {
-        try{
+    {   
+        try{    
             $address_id = (int) $request->id;
             $user_id    = auth('api')->user()->id;
             $response   = $this->addressService->manageDeleteAddress($address_id, $user_id);
