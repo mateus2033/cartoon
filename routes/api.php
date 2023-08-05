@@ -23,9 +23,9 @@ use App\Http\Middleware\ProtectedUserRoute;
 */
 
 Route::prefix('account/')->group(function () {
-    Route::POST('login',  [AuthController::class, 'login']);
-    Route::POST('storage',  [UserController::class, 'storage']);
-    Route::POST('administrador', [AdministratorController::class, 'saveAdministrator']);
+    Route::POST('login',  [AuthController::class, 'login'])->name('login');
+    Route::POST('storage',  [UserController::class, 'storage'])->name('save.user');
+    Route::POST('administrador', [AdministratorController::class, 'saveAdministrator'])->name('save.administrator');
 });
 
 Route::prefix('/cartoon')->group(function () {
@@ -34,23 +34,23 @@ Route::prefix('/cartoon')->group(function () {
 
 Route::prefix('/administrator')->group(function () {
     Route::group(['middleware' => ['adminAuth']], function () {
-        Route::POST('logout', [ProtectedAdmRoute::class, 'logout']);
-        Route::GET('show', [AdministratorController::class, 'showAdministrator']);
-        Route::PUT('update', [AdministratorController::class, 'updateAdministrator']);
-        Route::DELETE('delete', [AdministratorController::class, 'destroyAdministrator']);
-        Route::POST('updatePhotoPerfil', [AdministratorController::class, 'updatePicture']);
+        Route::GET('logout', [ProtectedAdmRoute::class, 'logout'])->name('logout.administrator');
+        Route::GET('show', [AdministratorController::class, 'showAdministrator'])->name('show.administrator');
+        Route::PUT('update', [AdministratorController::class, 'updateAdministrator'])->name('update.administrator');
+        Route::DELETE('delete', [AdministratorController::class, 'destroyAdministrator'])->name('delete.administrator');
+        Route::POST('updatePhotoPerfil', [AdministratorController::class, 'updatePicture'])->name('update.photo.perfil.administrator');
     });
 });
 
 Route::prefix('user/')->group(function () {
     Route::group(['middleware' => ['userAuth']], function () {
-        Route::POST('logout', [ProtectedUserRoute::class, 'logout']);
-        Route::GET('listUser',   [UserController::class, 'listUser']);
-        Route::GET('show',       [UserController::class, 'show']);
-        Route::PUT('update',     [UserController::class, 'update']);
-        Route::DELETE('destroy', [UserController::class, 'destroy']);
-        Route::DELETE('removePhoto',     [UserController::class, 'removePhotoPerfil']);
-        Route::POST('updatePhotoPerfil', [UserController::class, 'updatePicture']);
+        Route::GET('logout', [ProtectedUserRoute::class, 'logout'])->name('logout.user');
+        Route::GET('listUser',   [UserController::class, 'listUser'])->name('list.user');
+        Route::GET('show',       [UserController::class, 'show'])->name('show.user');
+        Route::PUT('update',     [UserController::class, 'update'])->name('update.user');
+        Route::DELETE('destroy', [UserController::class, 'destroy'])->name('destroy.user');
+        Route::DELETE('removePhoto',     [UserController::class, 'removePhotoPerfil'])->name('remove.photo.user');
+        Route::POST('updatePhotoPerfil', [UserController::class, 'updatePicture'])->name('update.photo.perfil.user');
     });
 });
 

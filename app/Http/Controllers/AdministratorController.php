@@ -24,7 +24,7 @@ class AdministratorController extends Controller  {
     }
 
     public function saveAdministrator(Request $request)
-    {
+    {   
         try {
             DB::beginTransaction();
             $administrator = $request->only($this->userModel->getModel()->getFillable());
@@ -42,7 +42,7 @@ class AdministratorController extends Controller  {
 
     public function showAdministrator(Request $request)
     {
-        $administrator = $this->administratorService->showUserAdministrator((int) $request->adm_id);
+        $administrator = $this->administratorService->showUserAdministrator();
         if($administrator instanceof User)
            return response()->json(new AdministratorResource($administrator), Response::HTTP_OK);
         else 

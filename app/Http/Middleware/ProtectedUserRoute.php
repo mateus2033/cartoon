@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Utils\ConstantMessage\ConstantPermissionMessage;
+use ArrayObject;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
@@ -37,6 +38,11 @@ class ProtectedUserRoute
     public function me()
     {   
         $auth = response()->json(auth('api')->user());
+        if($auth->original instanceof ArrayObject) 
+        {
+            throw new Exception(ConstantPermissionMessage::AUTHORIZATION_NOT_FOUND, 401);
+        }
+        
         $permission = $auth->original->rules->permission;
         
         if (!isset($permission)) {

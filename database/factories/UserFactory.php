@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'name'       => $this->faker->name(),
             'lastName'   => $this->faker->lastName(),
             'cpf'        => '792.466.540-48',
-            'dataBirth'  => $this->faker->date(),
+            'dataBirth'  => $this->faker->date('d-m-Y'),
             'cellphone'  => $this->faker->phoneNumber(),
             'image'    => '',
             'email'    => $this->faker->unique()->safeEmail(),
