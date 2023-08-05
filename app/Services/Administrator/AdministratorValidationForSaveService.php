@@ -201,7 +201,8 @@ class AdministratorValidationForSaveService extends User {
     private function _image(array $data)
     {
         if (!isset($data['image'])) {
-            return ConstantMessage::REQUIRED;
+            $this->setImage('');
+            return null;
         }
 
         if (!$data['image']->isValid()) {
@@ -244,7 +245,7 @@ class AdministratorValidationForSaveService extends User {
      * @return string|null
      */
     private function _password(array $data)
-    {
+    {  
         if (!isset($data['password'])) {
             return ConstantMessage::REQUIRED;
         }

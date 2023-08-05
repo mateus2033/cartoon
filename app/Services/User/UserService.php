@@ -69,9 +69,9 @@ class UserService implements UserServiceInterface
         return $user->message;
     }
 
-    public function showUserById(int $user_id)
+    public function showUserById()
     {
-        $user = $this->userRepository->findById($user_id);
+        $user = $this->userRepository->findById(auth('api')->user()->id);
         if (!is_null($user) && $user->rule_id == PermissionValue::USER_PERMISSION) {
             return $user;
         }

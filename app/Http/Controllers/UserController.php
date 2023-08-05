@@ -51,8 +51,7 @@ class UserController extends Controller
     public function show(Request $request)
     {
         try {
-            $user = (int) $request->user_id;
-            $user = $this->userService->showUserById($user);
+            $user = $this->userService->showUserById();
             $response = new UserResource($user);
             return response()->json($response, Response::HTTP_OK);
         } catch (Exception $e) {

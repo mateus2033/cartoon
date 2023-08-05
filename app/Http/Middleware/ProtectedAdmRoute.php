@@ -2,20 +2,20 @@
 
 namespace App\Http\Middleware;
 
-
 use Closure;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use App\Utils\ConstantMessage\ConstantPermissionMessage;
+use ArrayObject;
 use Exception;
 
 class ProtectedAdmRoute
 {
 
     public function handle(Request $request, Closure $next)
-    {
+    {   
         try {
             $this->me();
             JWTAuth::parseToken()->authenticate();
@@ -31,8 +31,13 @@ class ProtectedAdmRoute
     public function me()
     {
         $auth = response()->json(auth('api')->user());
-        $permission = $auth->original->rules->permission;
+        if($auth->original instanceof ArrayObject) 
+        {
+            throw new Exception(ConstantPermissionMessage::AUTHORIZATION_NOT_FOUND, 401);
+        }
 
+        $permission = $auth->original->rules->permission;
+        
         if (!isset($permission)) {
             throw new Exception(ConstantPermissionMessage::AUTHORIZATION_NOT_FOUND, 401);
         }

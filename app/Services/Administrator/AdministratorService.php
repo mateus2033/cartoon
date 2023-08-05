@@ -49,9 +49,9 @@ class AdministratorService implements AdministratorServiceInterface
         return $administrator->message;
     }
 
-    public function showUserAdministrator(int $adm_id)
+    public function showUserAdministrator()
     {
-        $administrator = $this->userRepository->findById($adm_id);
+        $administrator = $this->userRepository->findById(auth('api')->user()->id);
         if (!is_null($administrator) && $administrator->rule_id == PermissionValue::ADMIN_PERMISSION)
             return $administrator;
         else
