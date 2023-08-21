@@ -86,10 +86,10 @@ Route::prefix('bankdata/')->group(function () {
 
 Route::prefix('bank/')->group(function () {
     Route::group(['middleware' => ['adminAuth']], function () {
-        Route::GET('index', [BankController::class, 'index']);
-        Route::POST('storage', [BankController::class, 'storage']);
-        Route::PUT('update', [BankController::class, 'update']);
-        Route::DELETE('delete', [BankController::class, 'delete']);
+        Route::GET('index/{page}', [BankController::class, 'index'])->name('index.bank');
+        Route::POST('storage', [BankController::class, 'storage'])->name('storage.bank');
+        Route::PUT('update', [BankController::class, 'update'])->name('update.bank');
+        Route::DELETE('delete', [BankController::class, 'delete'])->name('delete.bank');
     });
 });
 
