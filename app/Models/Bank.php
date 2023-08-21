@@ -11,14 +11,26 @@ class Bank extends Model
     protected $table = 'banks';
 
     protected $fillable = [
+        'id',
         'code',
         'name',
         'active'
     ];
 
+    private int $id;
     private string $code;
     private string $name;
     private string $active;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getCode()
     {
@@ -48,5 +60,10 @@ class Bank extends Model
     public function setActive(string $active): void
     {
         $this->active = $active;
+    }
+
+    public function bankData()
+    {
+        return $this->hasMany(BankData::class, 'bank_id');
     }
 }

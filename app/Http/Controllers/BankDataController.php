@@ -67,6 +67,7 @@ class BankDataController extends Controller
                 DB::commit();
                 return response()->json(new BankDataStorageResource($bankData), Response::HTTP_CREATED);
             }
+            DB::rollBack();
             return response()->json($bankData, Response::HTTP_BAD_REQUEST);
         } catch (Exception $e) {
             DB::rollBack();
@@ -85,6 +86,7 @@ class BankDataController extends Controller
                 DB::commit();
                 return response()->json(new BankDataUpdateResource($bankData), Response::HTTP_OK);
             }
+            DB::rollBack();
             return response()->json($bankData, Response::HTTP_BAD_REQUEST);
         } catch (Exception $e) {
             DB::rollBack();
