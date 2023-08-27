@@ -35,7 +35,7 @@ class ProductController extends Controller
 
 
     public function index(Request $request)
-    {
+    {   
         $response = $this->productService->index($request->paginate);
         if ($response instanceof Collection)
             return response()->json(new ProductIndexResource($response),  Response::HTTP_OK);
@@ -63,7 +63,7 @@ class ProductController extends Controller
 
     public function show(Request $request)
     {
-        $product_id = (int) $request->product_id;
+        $product_id = (int) $request->id;
         $response = $this->productService->showProductById($product_id);
         if ($response instanceof Product)
             return response()->json(new ProductResource($response), Response::HTTP_OK);

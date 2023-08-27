@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Builders\Address\AddressBuilder;
 use Tests\Builders\Administrator\AdministratorBuilder;
 use Tests\Builders\Bank\BankBuilder;
+use Tests\Builders\Product\ProductBuilder;
 use Tests\Builders\Rules\RulesBuilder;
 
 abstract class TestCase extends BaseTestCase
@@ -45,5 +46,10 @@ abstract class TestCase extends BaseTestCase
     public function administrator(): AdministratorBuilder
     {
         return new AdministratorBuilder;
+    }
+
+    public function product(): ProductBuilder 
+    {
+        return new ProductBuilder;
     }
 }

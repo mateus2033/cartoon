@@ -65,12 +65,12 @@ Route::prefix('address/')->group(function () {
 
 Route::prefix('product/')->group(function () {
     Route::group(['middleware' => ['adminAuth']], function () {
-        Route::GET('index',      [ProductController::class, 'index']);
-        Route::GET('show',       [ProductController::class, 'show']);
-        Route::POST('storage',   [ProductController::class, 'storage']);
-        Route::PUT('update',     [ProductController::class, 'update']);
-        Route::DELETE('destroy', [ProductController::class, 'destroy']);
-        Route::GET('indexMoreSold',      [ProductController::class, 'indexOfMoreSoldInMonth']);
+        Route::GET('index',      [ProductController::class, 'index'])->name('product.index');
+        Route::GET('show/{id}',[ProductController::class, 'show'])->name('product.show');
+        Route::POST('storage',   [ProductController::class, 'storage'])->name('product.storage');
+        Route::PUT('update',     [ProductController::class, 'update'])->name('product.update');
+        Route::DELETE('destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+        Route::GET('indexMoreSold', [ProductController::class, 'indexOfMoreSoldInMonth'])->name('product.index.more.sold');
     });
 });
 
