@@ -1,22 +1,17 @@
-<?php
+<?php 
 
-namespace App\Repository\Category;
+namespace App\Repository\Enterprise;
 
-use App\Interfaces\Category\CategoryRepositoryInterface;
-use App\Models\Category;
+use App\Interfaces\Enterprise\EnterpriseRepositoryInterface;
+use App\Models\Enterprise;
 
-class CategoryRepository implements CategoryRepositoryInterface {
-
-    protected Category $model;
-
-    public function __construct(Category $model)
+class EnterpriseRepository implements EnterpriseRepositoryInterface
+{
+    protected Enterprise $model;
+    
+    public function __construct(Enterprise $model)
     {
         $this->model = $model;
-    }
-
-    public function getAll()
-    {
-        return $this->model->all();
     }
 
     public function findById(int $id)
@@ -38,5 +33,4 @@ class CategoryRepository implements CategoryRepositoryInterface {
     {
         return $this->model->destroy($id);
     }
-
 }

@@ -11,10 +11,10 @@ class ManagePath {
      * @return string
      */
     public static function createPath(string $path, $image): string
-    {
-        $imageName = md5($image->getClientOriginalName() . strtotime("now")) . "." . $image->extension();
+    {  
+        $string = sprintf('%08X', mt_rand(0, 0xFFFFFFFF));
+        $imageName = md5($image->getClientOriginalName() . strtotime("now")) . strtolower($string) . "." . $image->extension();
         $image->move(public_path($path), $imageName);
         return $imageName;
     }
-
 }

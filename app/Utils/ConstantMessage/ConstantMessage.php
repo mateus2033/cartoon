@@ -197,6 +197,6 @@ class ConstantMessage
     /**
      * @var string INVALID_NUMBER_PHOTOS
      */
-    const INVALID_NUMBER_PHOTOS = 'Invalid numbers of photos';
+    const INVALID_NUMBER_PHOTOS = 'The product must contain 4 photos';
 
 }
