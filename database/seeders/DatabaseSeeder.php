@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             StockSeeder::class,
             UserSeeder::class,
-            BankSeeder::class
+            BankSeeder::class,
+            EnterpriseSeeder::class
         ]);
 
        \App\Models\Acquisitions::factory(20)->create();

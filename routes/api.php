@@ -8,6 +8,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\BankDataController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\EnterpriseController;
 use App\Http\Middleware\ProtectedAdmRoute;
 use App\Http\Middleware\ProtectedUserRoute;
 
@@ -93,3 +94,12 @@ Route::prefix('bank/')->group(function () {
     });
 });
 
+
+Route::prefix('enterprise/')->group(function () {
+    Route::group(['middleware' => []], function () {
+        Route::GET('show/{id}', [EnterpriseController::class, 'show'])->name('show.enterprise');
+        Route::POST('storage', [EnterpriseController::class, 'storage'])->name('storage.enterprise');
+        Route::PUT('update', [EnterpriseController::class, 'update'])->name('update.enterprise');
+        Route::DELETE('delete', [EnterpriseController::class, 'delete'])->name('delete.enterprise');
+    });
+});
