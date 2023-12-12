@@ -9,6 +9,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * User
+ * @package Mateus2033
+ * @author  Mateus2033
+ * @OA\Schema(
+ *     title="User",
+ *     @OA\Xml(
+ *         name="User"
+ *     )
+ * )
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
