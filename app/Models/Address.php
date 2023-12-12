@@ -5,6 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Address
+ * @package Mateus2033
+ * @author  Mateus2033
+ * @OA\Schema(
+ *     title="Pets Address",
+ *     @OA\Xml(
+ *         name="Address"
+ *     )
+ * )
+ */
 class Address extends Model
 {
     use HasFactory;

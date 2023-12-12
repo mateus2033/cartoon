@@ -4,6 +4,7 @@
 /public/hot
 /public/storage
 /public/img
+/storage/framework
 /storage/*.key
 /vendor
 .env.backup
