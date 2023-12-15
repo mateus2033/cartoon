@@ -31,7 +31,9 @@ class IndexProductTest extends TestCase
     public function is_should_index_product_of_database()
     {
         $payload = [
-            'paginate' => 1
+            "page"=>1,
+            "perpage"=>10,
+            "paginate"=>true
         ];
         
         /** @var Collect $products */

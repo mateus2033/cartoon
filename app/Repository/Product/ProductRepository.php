@@ -4,39 +4,31 @@ namespace App\Repository\Product;
 
 use App\Interfaces\Product\ProductRepositoryInterface;
 use App\Models\Product;
+use App\Repository\BaseRepository\BaseRepository;
 
-class ProductRepository implements ProductRepositoryInterface {
+class ProductRepository extends BaseRepository {
 
-    
-    protected Product $model;
+    protected $modelClass = Product::class;
 
-    public function __construct(Product $model)
-    {
-        $this->model = $model;
+    public function getAll(int $page, int $perpage, bool $paginate)
+    {   
+        $query = $this->getModel()->newQuery();
+        $query = $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
+        return $query;
     }
 
-    public function getAll()
+    public function getAllWithRelations(int $page, int $perpage, bool $paginate, array $relations = [])
     {
-        return $this->model->all();
+        $query = $this->modelClass::with($relations);
+        $query = $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
+        return $query;
     }
 
-    public function findById(int $id)
+    public function getProductMoreSold(int $page, int $perpage, bool $paginate, string  $dateInitial, string $dateNow)
     {
-        return $this->model->find($id);
-    }
-
-    public function create(array $data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update(Product $product, array $productValid)
-    {
-        return $product->update($productValid);
-    }
-
-    public function destroy(int $id)
-    {
-        return $this->model->destroy($id);
+        $query = $this->modelClass::join('acquisitions', 'products.id', 'acquisitions.product_id')
+        ->whereBetween('acquisitions.period',[$dateInitial, $dateNow])
+        ->orderBy('acquisitions.amount');
+        return $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
     }
 }

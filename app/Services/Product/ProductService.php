@@ -21,6 +21,7 @@ class ProductService implements ProductServiceInterface {
     private ProductValidationForSaveService $productValidationForSaveService;
     private AcquisitionsService $acquisitionsService;
     private ProductValidationForUpdateService $productValidationForUpdateService;
+    private ProductValidationForIndex $productValidationForIndex;
 
     public function __construct(
         StockService $stockService,
@@ -28,7 +29,8 @@ class ProductService implements ProductServiceInterface {
         AcquisitionsService $acquisitionsService,
         ProductPhotoService $productPhotoService,
         ProductValidationForSaveService $productValidationForSaveService,
-        ProductValidationForUpdateService $productValidationForUpdateService
+        ProductValidationForUpdateService $productValidationForUpdateService,
+        ProductValidationForIndex $productValidationForIndex
     ){
         $this->stockService = $stockService;
         $this->productRepository = $productRepository;
@@ -36,47 +38,79 @@ class ProductService implements ProductServiceInterface {
         $this->acquisitionsService = $acquisitionsService;
         $this->productValidationForSaveService = $productValidationForSaveService;
         $this->productValidationForUpdateService = $productValidationForUpdateService;
+        $this->productValidationForIndex = $productValidationForIndex;
     }
 
-    public function index($paginate)
+    public function index(array $data)
     {
-        $response = $this->productRepository->getAll();
-        if(!$response->isEmpty())
+        $payload = $this->productValidationForIndex->validateFormIndex($data);
+        if(!is_array($payload)) {
+            return $payload->message;
+        }
+
+        $response = $this->productRepository->getAll(
+            $payload['page'], 
+            $payload['perpage'], 
+            $payload['paginate']
+        );
+
+        if(!$response->isEmpty()) {
             return $response;
-        else
+        }
+
         return SuccessMessage::sucessMessage(ConstantMessage::LIST_PRODUCT_EMPTY);
     }
 
-    public function indexOfProductForUser($paginate)
-    {
-        $response = $this->productRepository->getAll();
-        if(!$response->isEmpty())
+    public function indexOfProductForUser(array $data)
+    {   
+        $payload = $this->productValidationForIndex->validateFormIndex($data);
+        if(!is_array($payload)) {
+            return $payload->message;
+        }
+
+        $response = $this->productRepository->getAll(
+            $payload['page'], 
+            $payload['perpage'], 
+            $payload['paginate']
+        );
+
+        if(!$response->isEmpty()) {
             return $response;
-        else
+        }
+
         return SuccessMessage::sucessMessage(ConstantMessage::LIST_PRODUCT_EMPTY);
     }
 
-    public function indexOfMoreSoldInMonth()
+    public function indexOfMoreSoldInMonth(array $data)
     {
-        $productMoreSold = $this->getProductMoreSold();
-        if(!$productMoreSold->isEmpty())
+        $productMoreSold = $this->getProductMoreSold($data);
+        if(is_array($productMoreSold) || !$productMoreSold->isEmpty())
             return $productMoreSold;
         else
         return ErroMensage::errorMessage(ConstantMessage::PRODUCT_NOT_FOUND);
     }
 
-    public function getProductMoreSold()
-    {
+    public function getProductMoreSold(array $data)
+    {   
         $dateNow = date('Y-m-d');
         $date = new DateTime($dateNow);
         $interval = new DateInterval('P6M');
         $date->sub($interval);
         $dateInitial = $date->format('Y-m-d');
+        
+        $payload = $this->productValidationForIndex->validateFormIndex($data);
+        if(!is_array($payload)) {
+            return $payload->message;
+        }
 
-        $products = $this->productRepository->getAll()->load('acquisitions');
-        $response = $products
-                    ->whereBetween('acquisitions.period',[$dateInitial,$dateNow])
-                    ->sortByDesc('acquisitions.amount');
+        $response = $this->productRepository->getProductMoreSold(
+            $payload['page'], 
+            $payload['perpage'], 
+            $payload['paginate'],
+            $dateInitial,
+            $dateNow,
+        );
+        
         return $response;
     }
 
