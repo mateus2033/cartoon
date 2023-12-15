@@ -35,27 +35,27 @@ class ProductController extends Controller
 
 
     public function index(Request $request)
-    {   
-        $response = $this->productService->index($request->paginate);
-        if ($response instanceof Collection)
+    {  
+        $response = $this->productService->index($request->all());
+        if (!$response->isEmpty())
             return response()->json(new ProductIndexResource($response),  Response::HTTP_OK);
         else
             return response()->json($response, Response::HTTP_OK);
     }
 
     public function indexOfProductForUser(Request $request)
-    {
-        $response = $this->productService->indexOfProductForUser($request->paginate);
-        if ($response instanceof Collection)
+    {   
+        $response = $this->productService->indexOfProductForUser($request->all());
+        if (!$response->isEmpty())
             return response()->json(new ProductGenericResource($response),  Response::HTTP_OK);
         else
             return response()->json($response, Response::HTTP_OK);
     }
 
-    public function indexOfMoreSoldInMonth()
+    public function indexOfMoreSoldInMonth(Request $request)
     {
-        $response = $this->productService->indexOfMoreSoldInMonth();
-        if ($response instanceof Collection)
+        $response = $this->productService->indexOfMoreSoldInMonth($request->all());
+        if (!$response->isEmpty())
             return response()->json(new ProductGenericResource($response),  Response::HTTP_OK);
         else
             return response()->json($response, Response::HTTP_OK);
