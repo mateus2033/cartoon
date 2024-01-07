@@ -15,7 +15,7 @@ class IndexProductTest extends TestCase
     private string $token;
 
     public function execute($payload)
-    { 
+    {   //dd( $this->getJson(route('product.index', $payload), ['authorization' => 'Bearer ' . $this->token, 'Accept' => 'application/json']));
         return $this->getJson(route('product.index', $payload), ['authorization' => 'Bearer ' . $this->token, 'Accept' => 'application/json']);
     }
 

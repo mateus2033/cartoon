@@ -18,8 +18,8 @@ abstract class BaseRepository
     }
 
     public function findById(int $id)
-    {
-        return $this->modelClass->find($id);
+    {   
+        return $this->newQuery()->find($id);
     }
 
     public function create(array $data)
@@ -33,8 +33,8 @@ abstract class BaseRepository
     }
 
     public function destroy(int $id)
-    {
-        return $this->modelClass->destroy($id);
+    {   
+        return $this->getModel()->destroy($id);
     }
 
     protected function newQuery()

@@ -11,7 +11,6 @@ use App\Services\Product\ProductService;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ErroMensage\ErroMensage;
 use App\Utils\SuccessMessage\SuccessMessage;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +36,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {  
         $response = $this->productService->index($request->all());
-        if (!$response->isEmpty())
+        if (!is_array($response) && !$response->isEmpty())
             return response()->json(new ProductIndexResource($response),  Response::HTTP_OK);
         else
             return response()->json($response, Response::HTTP_OK);
@@ -46,7 +45,7 @@ class ProductController extends Controller
     public function indexOfProductForUser(Request $request)
     {   
         $response = $this->productService->indexOfProductForUser($request->all());
-        if (!$response->isEmpty())
+        if (!is_array($response) && !$response->isEmpty())
             return response()->json(new ProductGenericResource($response),  Response::HTTP_OK);
         else
             return response()->json($response, Response::HTTP_OK);
@@ -55,7 +54,7 @@ class ProductController extends Controller
     public function indexOfMoreSoldInMonth(Request $request)
     {
         $response = $this->productService->indexOfMoreSoldInMonth($request->all());
-        if (!$response->isEmpty())
+        if (!is_array($response) && !$response->isEmpty())
             return response()->json(new ProductGenericResource($response),  Response::HTTP_OK);
         else
             return response()->json($response, Response::HTTP_OK);
