@@ -28,6 +28,13 @@ class IndexMoreSoldTest extends TestCase
     /** @test*/
     public function is_should_index_product_more_sold_of_database()
     {
-        $this->execute()->assertStatus(Response::HTTP_OK);
+        $payload = [
+            "page"=>1,
+            "perpage"=>10,
+            "paginate"=>true
+        ];
+
+        $this->execute($payload)->assertStatus(Response::HTTP_OK);
+        //$this->execute()->assertStatus(Response::HTTP_OK);
     }
 }

@@ -3,10 +3,10 @@
 namespace App\Interfaces\Product;
 
 interface ProductServiceInterface {
-    public function index($paginate);
-    public function indexOfProductForUser($paginate);
-    public function indexOfMoreSoldInMonth();
-    public function getProductMoreSold();
+    public function index(array $data);
+    public function indexOfProductForUser(array $data);
+    public function indexOfMoreSoldInMonth(array $data);
+    public function getProductMoreSold(array $data);
     public function manageStorageProduct(array $product, array $stock, array $image);
     public function showProductById(int $product_id);
     public function manageUpdateProduct(array $product, array $stock);

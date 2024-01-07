@@ -15,7 +15,7 @@ class IndexProductTest extends TestCase
     private string $token;
 
     public function execute($payload)
-    { 
+    {   
         return $this->getJson(route('product.index', $payload), ['authorization' => 'Bearer ' . $this->token, 'Accept' => 'application/json']);
     }
 
@@ -31,7 +31,9 @@ class IndexProductTest extends TestCase
     public function is_should_index_product_of_database()
     {
         $payload = [
-            'paginate' => 1
+            "page"=>1,
+            "perpage"=>10,
+            "paginate"=>true
         ];
         
         /** @var Collect $products */
