@@ -3,3 +3,5 @@
 [2023-12-14 23:22:50] local.DEBUG: AdmService@Create ["Adm saved","400.733.750-04"] 
 [2023-12-14 23:32:45] local.DEBUG: AdmService@Create ["Adm saved","400.733.750-04"] 
 [2023-12-14 23:45:16] local.DEBUG: AdmService@Create ["Adm saved","400.733.750-04"] 
+[2024-01-20 18:21:53] testing.DEBUG: AdmService@Create ["Adm saved","792.466.540-48"] 
+[2024-01-20 18:21:54] testing.DEBUG: AdmService@Create ["Adm updated","792.466.540-48"] 

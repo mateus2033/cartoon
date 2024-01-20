@@ -52,10 +52,6 @@ abstract class BaseRepository
             return $query->paginate($limit, $columns, $pageName, $page);
         }
 
-        if ($limit > 0 || $limit) {
-            $query->take($limit);
-        }
-        
         return $query->get();
     }
 }
