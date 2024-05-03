@@ -2,16 +2,16 @@
 
 namespace App\Services\Category;
 
+use App\Interfaces\Category\CategoryRepositoryInterface;
 use App\Interfaces\Category\CategoryServiceInterface;
-use App\Repository\Category\CategoryRepository;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ErroMensage\ErroMensage;
 
 class CategoryService implements CategoryServiceInterface {
 
-    private CategoryRepository $categoryRepository; 
+    private CategoryRepositoryInterface $categoryRepository; 
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }

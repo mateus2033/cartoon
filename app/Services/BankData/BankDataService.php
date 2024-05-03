@@ -35,9 +35,9 @@ class BankDataService implements BankDataServiceInterface
         $this->bankDataUpdateService = $bankDataUpdateService;
     }
 
-    public function index($page)
+    public function index($data)
     {
-        $response = $this->bankDataRepository->getAll();
+        $response = $this->bankDataRepository->getAll($data->page, $data->perpage, $data->paginate);
         if (!$response->isEmpty())
             return $response;
         else

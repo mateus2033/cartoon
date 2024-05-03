@@ -32,7 +32,7 @@ class BankController extends Controller
 
     public function index(Request $request)
     {
-        $response = $this->bankService->index($request->page);
+        $response = $this->bankService->index($request);
         if ($response instanceof Collection)
             return response()->json(new BankIndexResource($response),  Response::HTTP_OK);
         else

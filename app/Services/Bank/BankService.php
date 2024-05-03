@@ -2,8 +2,8 @@
 
 namespace App\Services\Bank;
 
-use App\Interfaces\Bank\BankServiceInterface;
 use App\Interfaces\Bank\BankRepositoryInterface;
+use App\Interfaces\Bank\BankServiceInterface;
 use App\Services\Bank\BankValidationForSaveService;
 use App\Services\Bank\BankValidationForUpdateService;
 use App\Utils\ConstantMessage\bank\BankMessage;
@@ -12,7 +12,6 @@ use App\Utils\SuccessMessage\SuccessMessage;
 
 class BankService implements BankServiceInterface
 {
-
     protected $bankRepository;
     protected $bankValidationForSaveService;
     protected $bankValidationForUpdateService;
@@ -27,9 +26,9 @@ class BankService implements BankServiceInterface
         $this->bankValidationForUpdateService = $bankValidationForUpdateService;
     }
 
-    public function index($paginate)
+    public function index($data)
     {
-        $response = $this->bankRepository->getAll();
+        $response = $this->bankRepository->getAll($data->page, $data->perpage, $data->paginate);
         if (!$response->isEmpty())
             return $response;
         else

@@ -2,8 +2,8 @@
 
 namespace App\Services\Product;
 
+use App\Interfaces\Product\ProductRepositoryInterface;
 use App\Interfaces\Product\ProductServiceInterface;
-use App\Repository\Product\ProductRepository;
 use App\Services\Acquisitions\AcquisitionsService;
 use App\Services\ProductPhotos\ProductPhotoService;
 use App\Services\Stock\StockService;
@@ -16,7 +16,7 @@ use DateTime;
 class ProductService implements ProductServiceInterface {
 
     private StockService $stockService;
-    private ProductRepository $productRepository;
+    private ProductRepositoryInterface $productRepository;
     private ProductPhotoService $productPhotoService;
     private ProductValidationForSaveService $productValidationForSaveService;
     private AcquisitionsService $acquisitionsService;
@@ -25,7 +25,7 @@ class ProductService implements ProductServiceInterface {
 
     public function __construct(
         StockService $stockService,
-        ProductRepository $productRepository,
+        ProductRepositoryInterface $productRepository,
         AcquisitionsService $acquisitionsService,
         ProductPhotoService $productPhotoService,
         ProductValidationForSaveService $productValidationForSaveService,

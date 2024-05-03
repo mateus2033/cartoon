@@ -5,7 +5,7 @@ namespace App\Interfaces\Bank;
 use App\Models\Bank;
 
 interface BankRepositoryInterface {
-    public function getAll();
+    public function getAll(int $page, int $perpage, bool $paginate);
     public function findById(int $id);
     public function create(array $data);
     public function update(Bank $bankData ,array $data);

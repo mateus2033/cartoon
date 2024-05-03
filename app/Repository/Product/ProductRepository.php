@@ -6,7 +6,7 @@ use App\Interfaces\Product\ProductRepositoryInterface;
 use App\Models\Product;
 use App\Repository\BaseRepository\BaseRepository;
 
-class ProductRepository extends BaseRepository {
+class ProductRepository extends BaseRepository implements ProductRepositoryInterface {
 
     protected $modelClass = Product::class;
 

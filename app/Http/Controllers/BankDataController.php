@@ -39,7 +39,7 @@ class BankDataController extends Controller
 
     public function index(Request $request)
     {
-        $response = $this->bankDataService->index($request->page);
+        $response = $this->bankDataService->index($request);
         if ($response instanceof Collection)
             return response()->json(new BankDataIndexResource($response),  Response::HTTP_OK);
         else

@@ -4,38 +4,16 @@ namespace App\Repository\Acquisitions;
 
 use App\Interfaces\Acquisitions\AcquisitionsRepositoryInterface;
 use App\Models\Acquisitions;
+use App\Repository\BaseRepository\BaseRepository;
 
-class AcquisitionsRespository implements AcquisitionsRepositoryInterface{
+class AcquisitionsRespository extends BaseRepository implements AcquisitionsRepositoryInterface {
 
-    protected Acquisitions $model;
+   protected $modelClass = Acquisitions::class;
 
-    public function __construct(Acquisitions $model)
-    {
-        $this->model = $model;
-    }
-
-    public function getAll()
-    {
-        return $this->model->all();
-    }
-
-    public function findById(int $id)
-    {
-        return $this->model->find($id);
-    }
-
-    public function create(array $data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update(array $data)
-    {
-        return $this->model->update($data);
-    }
-
-    public function destroy(int $id)
-    {
-        return $this->model->destroy($id);
-    }
+   public function getAll(int $page, int $perpage, bool $paginate)
+   {   
+      $query = $this->getModel()->newQuery();
+      $query = $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
+      return $query;
+   }
 }

@@ -2,19 +2,18 @@
 
 namespace App\Services\Stock;
 
+use App\Interfaces\Stock\StockRepositoryInterface;
 use App\Interfaces\Stock\StockServiceInterface;
 use App\Models\Product;
-use App\Models\Stock;
-use App\Repository\Stock\StockRepository;
 
 class StockService implements StockServiceInterface {
 
-    private StockRepository $stockRespository;
+    private StockRepositoryInterface $stockRespository;
     private StockValidationForSaveService $stockValidationForSaveService;
     private StockValidationForUpdateService $stockValidationForUpdateService;
 
     public function __construct(
-        StockRepository $stockRespository, 
+        StockRepositoryInterface $stockRespository, 
         StockValidationForSaveService $stockValidationForSaveService, 
         StockValidationForUpdateService $stockValidationForUpdateService
     ){

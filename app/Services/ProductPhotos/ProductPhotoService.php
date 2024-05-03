@@ -2,18 +2,19 @@
 
 namespace App\Services\ProductPhotos;
 
-use App\Repository\ProductPhotos\ProductPhotosRepository;
+use App\Interfaces\ProductPhotos\ProductPhotoServiceInterface;
+use App\Interfaces\ProductPhotos\ProductPhotosRepositoryInterface;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ErroMensage\ErroMensage;
 
-class ProductPhotoService
+class ProductPhotoService implements ProductPhotoServiceInterface
 {
 
-    private ProductPhotosRepository $productPhotosRepository;
+    private ProductPhotosRepositoryInterface $productPhotosRepository;
     private ProductPhotoValidationForSaveService $productPhotoValidationForSaveService;
 
     public function __construct(
-        ProductPhotosRepository $productPhotosRepository,
+        ProductPhotosRepositoryInterface $productPhotosRepository,
         ProductPhotoValidationForSaveService $productPhotoValidationForSaveService
     ) {
         $this->productPhotosRepository = $productPhotosRepository;
@@ -21,7 +22,7 @@ class ProductPhotoService
     }
 
     public function manageStorageProductPhotos(array $images,  $product)
-    {
+    {   
         $error = [];
         if (count($images) != 4) {
             return ErroMensage::errorMessage(ConstantMessage::INVALID_NUMBER_PHOTOS);
@@ -42,7 +43,7 @@ class ProductPhotoService
     }
 
     private function saveProductPhotos(array $photos)
-    {
+    {   
         foreach ($photos as $photo) {
             $this->productPhotosRepository->create($photo);
         }

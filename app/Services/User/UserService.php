@@ -2,9 +2,9 @@
 
 namespace App\Services\User;
 
+use App\Interfaces\User\UserRepositoryInterface;
 use App\Models\User;
 use App\Utils\ErroMensage\ErroMensage;
-use App\Repository\User\UserRepository;
 use App\Interfaces\User\UserServiceInterface;
 use App\Jobs\SendEmail;
 use App\Repository\Address\AddressRepository;
@@ -21,14 +21,14 @@ use Exception;
 class UserService implements UserServiceInterface
 {
 
-    private UserRepository $userRepository;
+    private UserRepositoryInterface $userRepository;
     private AddressRepository $addressRepository;
     private UserValidationForSaveService $userValidationForSaveService;
     private UserValidationForUpdateService $userValidationForUpdateService;
     private UserValidationPhotoPerfilForUpdate $userValidationPhotoPerfilForUpdate;
 
     public function __construct(
-        UserRepository $userRepository,
+        UserRepositoryInterface $userRepository,
         AddressRepository $addressRepository,
         UserValidationForSaveService $userValidationForSaveService,
         UserValidationForUpdateService $userValidationForUpdateService,
@@ -42,9 +42,9 @@ class UserService implements UserServiceInterface
     }
 
     public function index($data)
-    {
+    {   
         $response = [];
-        $users = $this->userRepository->getAll();
+        $users = $this->userRepository->getAll($data->page, $data->perpage, $data->paginate);
 
         foreach ($users as $user) {
             $user->load('address');
