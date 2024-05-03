@@ -12,9 +12,9 @@ class IndexBankDataTest extends TestCase
     private $user;
     private string $token;
 
-    public function execute($page)
+    public function execute($data)
     {   
-        return $this->getJson(route('bank.data.index', $page), ['authorization' => 'Bearer ' . $this->token, 'Accept' => 'application/json']);
+        return $this->getJson(route('bank.data.index', $data), ['authorization' => 'Bearer ' . $this->token, 'Accept' => 'application/json']);
     }
 
     public function setUp(): void
@@ -34,7 +34,12 @@ class IndexBankDataTest extends TestCase
         /** @var BankData $bankData */
         $bankData = $this->bankData()->setUserId($this->user->id)->setBankId($bank->id)->create(3);
 
-        $page = 1;       
-        $this->execute($page)->assertStatus(Response::HTTP_OK); 
+        $payload = [
+            "page" => 1,
+            "perpage" => 10,
+            "paginate" => true
+        ];
+
+        $this->execute($payload)->assertStatus(Response::HTTP_OK); 
     }
 }

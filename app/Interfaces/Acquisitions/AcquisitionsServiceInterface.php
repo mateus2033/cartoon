@@ -3,7 +3,7 @@ namespace App\Interfaces\Acquisitions;
 
 interface AcquisitionsServiceInterface {
     
-    public function listAcquisitions();
+    public function listAcquisitions($data);
     public function destroyAcquisitionRelation($acquisition);
 
 }

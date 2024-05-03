@@ -4,39 +4,16 @@ namespace App\Repository\BankData;
 
 use App\Interfaces\BankData\BankDataRepositoryInterface;
 use App\Models\BankData;
+use App\Repository\BaseRepository\BaseRepository;
 
-class BankDataRepository implements BankDataRepositoryInterface
+class BankDataRepository extends BaseRepository implements BankDataRepositoryInterface
 {
-    private int $user;
-    protected BankData $model;   
+    protected $modelClass = BankData::class;
 
-    public function __construct(BankData $model)
-    {
-        $this->model = $model;
-    }
-
-    public function getAll()
+    public function getAll(int $page, int $perpage, bool $paginate)
     {   
-        return $this->model->all()->where('user_id','=', auth('api')->user()->id);
-    }
-
-    public function findById(int $id)
-    {
-        return $this->model->find($id);
-    }
-
-    public function create(array $data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update(BankData $bankData, array $data)
-    {
-        return $bankData->update($data);
-    }
-
-    public function destroy(int $id)
-    {
-        return $this->model->destroy($id);
+       $query = $this->getModel()->newQuery();
+       $query = $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
+       return $query;
     }
 }

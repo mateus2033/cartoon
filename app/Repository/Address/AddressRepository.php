@@ -4,44 +4,21 @@ namespace App\Repository\Address;
 
 use App\Interfaces\Address\AddressRepositoryInterface;
 use App\Models\Address;
+use App\Repository\BaseRepository\BaseRepository;
 
-class AddressRepository implements AddressRepositoryInterface {
+class AddressRepository extends BaseRepository implements AddressRepositoryInterface {
 
-
-    protected Address $model;
-    
-    public function __construct(Address $model)
-    {
-        $this->model = $model;
-    }
-
-    public function getAll()
-    {
-        return $this->model->all();
-    }
-
-    public function findById(int $id)
-    {
-        return $this->model->find($id);
-    }
-
-    public function create(array $data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update(Address $address, array $addressValid)
-    {
-        return $address->update($addressValid);
-    }
-
-    public function destroy(int $id)
-    {
-        return $this->model->destroy($id);
-    }
+    protected $modelClass = Address::class;
 
     public function findByRelations(int $data) 
     {
-        return $this->model->all()->where('user_id' ,'=', $data);
+        return $this->getModel()->all()->where('user_id' ,'=', $data);
+    }
+
+    public function getAll(int $page, int $perpage, bool $paginate)
+    {   
+       $query = $this->getModel()->newQuery();
+       $query = $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
+       return $query;
     }
 }

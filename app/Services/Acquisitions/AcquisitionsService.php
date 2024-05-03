@@ -2,23 +2,23 @@
 
 namespace App\Services\Acquisitions;
 
+use App\Interfaces\Acquisitions\AcquisitionsRepositoryInterface;
 use App\Interfaces\Acquisitions\AcquisitionsServiceInterface;
-use App\Repository\Acquisitions\AcquisitionsRespository;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ErroMensage\ErroMensage;
 
 class AcquisitionsService implements AcquisitionsServiceInterface {
 
-    private AcquisitionsRespository $acquisitionsRespository;  
+    private AcquisitionsRepositoryInterface $acquisitionsRespository;  
 
-    public function __construct(AcquisitionsRespository $acquisitionsRespository)
+    public function __construct(AcquisitionsRepositoryInterface $acquisitionsRespository)
     {
         $this->acquisitionsRespository = $acquisitionsRespository;
     }
 
-    public function listAcquisitions()
+    public function listAcquisitions($data)
     {
-        $acquisitions = $this->acquisitionsRespository->getAll();
+        $acquisitions = $this->acquisitionsRespository->getAll($data->page, $data->perpage, $data->paginate);
         if(!is_null($acquisitions)) {
             return $acquisitions;
         }
