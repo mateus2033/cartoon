@@ -8,5 +8,5 @@ use App\Repository\BaseRepository\BaseRepository;
 
 class EnterpriseRepository extends BaseRepository implements EnterpriseRepositoryInterface
 {
-    protected Enterprise $model;
+    protected $modelClass = Enterprise::class;
 }
