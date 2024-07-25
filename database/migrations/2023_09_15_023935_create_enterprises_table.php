@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('municipal_registration',250);
             $table->string('responsible', 100);
             $table->string('foundation',10);
-            $table->bigInteger('address_id')->unsigned()->nullable();
-            $table->foreign('address_id')->references('id')->on('addresses');
             $table->timestamps();
         });
     }

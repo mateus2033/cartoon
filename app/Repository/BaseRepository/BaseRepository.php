@@ -18,7 +18,7 @@ abstract class BaseRepository
     }
 
     public function findById(int $id)
-    {   
+    {  
         return $this->newQuery()->find($id);
     }
 
@@ -38,7 +38,7 @@ abstract class BaseRepository
     }
 
     protected function newQuery()
-    {
+    {   
         return $this->getModel()->newQuery();
     }
 
