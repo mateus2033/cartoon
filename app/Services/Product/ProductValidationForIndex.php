@@ -6,16 +6,47 @@ use App\Utils\ConstantMessage\product\ProductMessage;
 
 class ProductValidationForIndex 
 {
-    private bool  $isValid;
-    public  array $message;
+    /**
+     * @var int $page
+     */
+    private int $page;
+
+    /**
+     * @var int $perpage
+     */
+    private int $perpage;
+
+    /**
+     * @var bool $paginate
+     */
+    private bool $paginate;
+
+    /**
+     * @var bool $isValid
+     */
+    private bool $isValid;
+
+    /**
+     * @var array $message 
+     */
+    public array $message;
 
     public function validateFormIndex(array $data) 
     {
         $this->validateProduct($data);
         if ($this->isValid == true) {
-            return $data;
+            return $this->assemblesTheValidatedData();
         }
         return $this;
+    }
+
+    private function assemblesTheValidatedData(): array 
+    {
+        return [
+            'page' => $this->page,
+            'perpage' => $this->perpage,
+            'paginate' => $this->paginate
+        ];
     }
 
     private function validateProduct(array $data)
@@ -55,7 +86,7 @@ class ProductValidationForIndex
             return ProductMessage::REQUIRED;
         }
 
-        if(!is_integer($data['page']))
+        if (preg_match('/[^0-9]/', $data['page']))
         {
             return ProductMessage::ONLY_INTEGER;
         }
@@ -65,6 +96,7 @@ class ProductValidationForIndex
             return ProductMessage::ONLY_POSITIVE;
         }
 
+        $this->page = (int) $data['page'];
         return null;
     }
 
@@ -79,7 +111,7 @@ class ProductValidationForIndex
             return ProductMessage::REQUIRED;
         }
 
-        if(!is_integer($data['perpage']))
+        if (preg_match('/[^0-9]/', $data['perpage']))
         {
             return ProductMessage::ONLY_INTEGER;
         }
@@ -89,6 +121,7 @@ class ProductValidationForIndex
             return ProductMessage::ONLY_POSITIVE;
         }
 
+        $this->perpage = (int) $data['perpage'];
         return null;
     }
 
@@ -97,17 +130,20 @@ class ProductValidationForIndex
      * @return string|null
      */
     private function _paginate(array $data)
-    {
+    { 
         if(!isset($data['paginate']))
         {
             return ProductMessage::REQUIRED;
         }
-
-        if(!is_bool($data['paginate']))
+        
+        $booleanValue = filter_var($data['paginate'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+    
+        if(!is_bool($booleanValue))
         {
             return ProductMessage::ONLY_BOOLEAN;
         }
 
+        $this->paginate = $booleanValue;
         return null;
     }
 }

@@ -46,7 +46,7 @@ class ProductController extends Controller
     {   
         $response = $this->productService->indexOfProductForUser($request->all());
         if (!is_array($response) && !$response->isEmpty())
-            return response()->json(new ProductGenericResource($response),  Response::HTTP_OK);
+            return response()->json($response,  Response::HTTP_OK);
         else
             return response()->json($response, Response::HTTP_OK);
     }

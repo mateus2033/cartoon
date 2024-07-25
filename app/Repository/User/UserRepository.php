@@ -4,39 +4,16 @@ namespace App\Repository\User;
 
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Models\User;
+use App\Repository\BaseRepository\BaseRepository;
 
-class UserRepository implements UserRepositoryInterface {
+class UserRepository extends BaseRepository implements UserRepositoryInterface {
 
-    
-    protected User $model;
+    protected $modelClass = User::class;
 
-    public function __construct(User $model)
-    {
-        $this->model = $model;
-    }
-
-    public function getAll()
-    {
-        return $this->model->all();
-    }
-
-    public function findById(int $id)
-    {
-        return $this->model->find($id);
-    }
-
-    public function create(array $data)
-    {
-        return $this->model->create($data);
-    }
-
-    public function update(User $user, array $data)
+    public function getAll(int $page, int $perpage, bool $paginate)
     {   
-        return $user->update($data);
-    }
-
-    public function destroy(int $id)
-    {
-        return $this->model->destroy($id);
+        $query = $this->getModel()->newQuery();
+        $query = $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
+        return $query;
     }
 }

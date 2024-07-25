@@ -2,9 +2,9 @@
 
 namespace App\Services\Address;
 
-use App\Interfaces\Address\AddressServiceInterface;
 use App\Models\Address;
-use App\Repository\Address\AddressRepository;
+use App\Interfaces\Address\AddressRepositoryInterface;
+use App\Interfaces\Address\AddressServiceInterface;
 use App\Services\Address\AddressValidationForSaveService;
 use App\Services\Address\AddressValidationForUpdateService;
 use App\Utils\ConstantMessage\ConstantMessage;
@@ -13,12 +13,12 @@ use App\Utils\SuccessMessage\SuccessMessage;
 
 class AddressService implements AddressServiceInterface
 {
-    private AddressRepository $addressRepository;
+    private AddressRepositoryInterface $addressRepository;
     private AddressValidationForSaveService $addressValidationForSaveService;
     private AddressValidationForUpdateService $addressValidationForUpdateService;
 
     public function __construct(
-        AddressRepository $addressRepository,
+        AddressRepositoryInterface $addressRepository,
         AddressValidationForSaveService $addressValidationForSaveService,
         AddressValidationForUpdateService $addressValidationForUpdateService
     ) {
@@ -32,7 +32,7 @@ class AddressService implements AddressServiceInterface
         $address = $this->addressRepository->findByRelations($user_id);
         if ($address->isNotEmpty()) return $address;
         else
-            return ErroMensage::errorMessage(ConstantMessage::ADDRESSNOTFOUND);
+        return ErroMensage::errorMessage(ConstantMessage::ADDRESSNOTFOUND);
     }
 
     public function manageStorageAddress(array $data)

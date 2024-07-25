@@ -8,22 +8,22 @@ use App\Utils\LogsInfo\OriginLog;
 use Illuminate\Support\Facades\Log;
 use App\Utils\ManagePath\ManagePath;
 use App\Utils\ConstantMessage\ConstantPath;
-use App\Repository\User\UserRepository;
 use App\Utils\ConstantMessage\ConstantMessage;
 use App\Utils\ErroMensage\ErroMensage;
 use App\Utils\PermissionValue\PermissionValue;
 use App\Interfaces\Administrator\AdministratorServiceInterface;
+use App\Interfaces\User\UserRepositoryInterface;
 
 class AdministratorService implements AdministratorServiceInterface
 {
 
-    private UserRepository $userRepository;
+    private UserRepositoryInterface $userRepository;
     private AdministratorValidationForSaveService $administratorValidationForSaveService;
     private AdministratorValidationForUpdateService $administratorValidationForUpdateService;
     private UserValidationPhotoPerfilForUpdate $userValidationPhotoPerfilForUpdate;
 
     public function __construct(
-        UserRepository $userRepository,
+        UserRepositoryInterface $userRepository,
         AdministratorValidationForSaveService $administratorValidationForSaveService,
         AdministratorValidationForUpdateService $administratorValidationForUpdateService,
         UserValidationPhotoPerfilForUpdate $userValidationPhotoPerfilForUpdate

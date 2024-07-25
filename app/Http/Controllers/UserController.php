@@ -25,7 +25,6 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-
     public function listUser(Request $request)
     {
         $users = $this->userService->index($request);
