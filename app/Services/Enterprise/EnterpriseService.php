@@ -26,11 +26,10 @@ class EnterpriseService implements EnterpriseServiceInterface
     public function show(int $enterprise_id)
     {
         $response = $this->enterpriseRepository->findById($enterprise_id);
-        dd($response);
-        if (!$response->isEmpty())
+        if (!is_null($response))
             return $response;
         else
-            return SuccessMessage::sucessMessage(EnterpriseMessage::ENTERPRISE_NOT_FOUND);
+        return SuccessMessage::sucessMessage(EnterpriseMessage::ENTERPRISE_NOT_FOUND);
     }
 
     public function manageStorageEnterprise(array $enterprise, array $address)
