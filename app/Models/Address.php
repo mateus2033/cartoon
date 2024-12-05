@@ -27,19 +27,16 @@ class Address extends Model
         'city',
         'state',
         'country',
-        'postalCode',
-        'user_id',
+        'postalCode'
     ];
 
-    private int    $id;
+    private int $id;
     private string $street;
     private string $number;
     private string $city;
     private string $state;
     private string $country;
     private string $postalCode;
-    private int    $user_id;
-
 
     /**
      * Get the value of id
@@ -157,27 +154,5 @@ class Address extends Model
     public function setPostalCode($postalCode): void
     {
         $this->postalCode = $postalCode;
-    }
-
-    /**
-     * Get the value of user_id
-     */
-    public function getUser_id(): int
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Set the value of user_id
-     *
-     */
-    public function setUser_id($user_id): void
-    {
-        $this->user_id = $user_id;
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
 }

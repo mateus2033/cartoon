@@ -88,7 +88,7 @@ class Enterprise extends Model
         $this->id = $id;
     }
 
-    public function setName(int $name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }

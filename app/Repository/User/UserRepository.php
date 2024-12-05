@@ -13,7 +13,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     public function getAll(int $page, int $perpage, bool $paginate)
     {   
         $query = $this->getModel()->newQuery();
-        $query = $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
-        return $query;
+        return $this->mountQuery($query, $perpage, $columns = ['*'], $pageName = null, $page, $paginate);
     }
 }

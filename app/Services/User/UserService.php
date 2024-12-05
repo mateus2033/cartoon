@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Exceptions\CustomException;
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Models\User;
 use App\Utils\ErroMensage\ErroMensage;
@@ -17,6 +18,7 @@ use App\Utils\PermissionValue\PermissionValue;
 use App\Utils\SuccessMessage\SuccessMessage;
 use Illuminate\Support\Facades\Log;
 use Exception;
+use Illuminate\Http\Response;
 
 class UserService implements UserServiceInterface
 {
@@ -43,14 +45,12 @@ class UserService implements UserServiceInterface
 
     public function index($data)
     {   
-        $response = [];
         $users = $this->userRepository->getAll($data->page, $data->perpage, $data->paginate);
+        if($users->isEmpty()) {
+            return CustomException::exception(ConstantMessage::USERNOTFOUND, Response::HTTP_NO_CONTENT);
+        }   
 
-        foreach ($users as $user) {
-            $user->load('address');
-            $response[] = $user;
-        }
-        return $response;
+        return $users;
     }
 
     public function manageStorageUser(array $data)

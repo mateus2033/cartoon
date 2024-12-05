@@ -35,7 +35,6 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-
     protected $fillable = [
         'id',
         'name',
@@ -49,9 +48,8 @@ class User extends Authenticatable implements JWTSubject
         'rule_id',
         'email_verified_at'
     ];
-
   
-    private int    $id;
+    private int $id;
     private string $name;
     private string $lastName;
     private string $cpf;
@@ -60,11 +58,8 @@ class User extends Authenticatable implements JWTSubject
     private string $image;
     private string $email;
     private string $password;
-
-
     private $rule_id;
     private string $email_verified_at;
-
 
     public function getId(): int
     {
@@ -174,11 +169,6 @@ class User extends Authenticatable implements JWTSubject
     public function setEmail_verified_at($email_verified_at): void
     {
         $this->email_verified_at = $email_verified_at;
-    }
-
-    public function address()
-    {
-        return $this->hasMany(Address::class, 'user_id');
     }
 
     public function rules()

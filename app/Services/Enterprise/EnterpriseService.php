@@ -32,9 +32,10 @@ class EnterpriseService implements EnterpriseServiceInterface
         return SuccessMessage::sucessMessage(EnterpriseMessage::ENTERPRISE_NOT_FOUND);
     }
 
-    public function manageStorageEnterprise(array $enterprise, array $address)
+    public function manageStorageEnterprise(array $enterprise, ?array $address)
     {
-        //
+        $enterprise = $this->enterpriseValidationForSaveService->validFormEnterprise($enterprise);
+        dd($address);
     }
 
     public function manageUpdateEnterprise(array $enterprise)

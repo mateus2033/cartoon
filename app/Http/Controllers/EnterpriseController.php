@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CustomException;
 use App\Http\Resources\Enterprise\EnterpriseShowResource;
 use Exception;
 use App\Models\Enterprise;
@@ -40,16 +41,15 @@ class EnterpriseController extends Controller
     {
         try {
             DB::beginTransaction();
-            $address[]  = $request->address;
             $enterprise = $request->only($this->enterpriseModel->getModel()->getFillable());
-            $enterprise = $this->enterpriseService->manageStorageEnterprise($enterprise, $address);
+            $enterprise = $this->enterpriseService->manageStorageEnterprise($enterprise, $request->address);
             if ($enterprise instanceof Enterprise) {
                 return response()->json(new EnterpriseStorageResource($enterprise), Response::HTTP_CREATED);
             }
             return response()->json($enterprise, Response::HTTP_BAD_REQUEST);
         } catch (Exception $e) {
             DB::rollBack();
-            return ErroMensage::errorMessage($e->getMessage(), $e->getCode());
+            return CustomException::exception($e);
         }
     }
 
